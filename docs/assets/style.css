@@ -174,7 +174,7 @@ textarea:focus { outline: 3px solid var(--accent-soft); border-color: var(--acce
 
 /* hamburger menü (csak telefonon, JS-sel; JS nélkül a menü kiírva marad) */
 .nav-toggle { display: none; }
-@media (max-width: 639px) {
+@media (max-width: 899px) {
   .nav-toggle {
     display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; margin-left: auto;
     width: 48px; height: 48px; padding: 0 12px; background: transparent; border: 1px solid var(--line);
