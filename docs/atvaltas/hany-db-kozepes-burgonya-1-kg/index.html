@@ -23,7 +23,8 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/brand/app-icon-180.png">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/assets/style.css?v=74a05b01">
+<script>document.documentElement.className+=" js"</script>
+<link rel="stylesheet" href="/assets/style.css?v=704313bc">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Főoldal","item":"https://konyhaiatvalto.hu/"},{"@type":"ListItem","position":2,"name":"Darabos hozzávalók","item":"https://konyhaiatvalto.hu/darab/"},{"@type":"ListItem","position":3,"name":"Közepes burgonya","item":"https://konyhaiatvalto.hu/darab/kozepes-burgonya/"},{"@type":"ListItem","position":4,"name":"Hány darab közepes burgonya 1 kg?","item":"https://konyhaiatvalto.hu/atvaltas/hany-db-kozepes-burgonya-1-kg/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hány darab közepes burgonya 1 kg?","acceptedAnswer":{"@type":"Answer","text":"1 kg (1000 g) közepes burgonya kb. 6,7 darab."}},{"@type":"Question","name":"Hány gramm egy közepes burgonya?","acceptedAnswer":{"@type":"Answer","text":"Egy közepes burgonya kb. 150 g, azaz 15 dkg."}},{"@type":"Question","name":"Hány gramm 2 közepes burgonya?","acceptedAnswer":{"@type":"Answer","text":"2 közepes burgonya kb. 300 g, azaz 30 dkg."}},{"@type":"Question","name":"Mennyire pontos ez az érték?","acceptedAnswer":{"@type":"Answer","text":"Tájékoztató érték, átlagos méretű darabbal számolunk. Hámozatlan, közepes méretű burgonya; a hámozás után kb. 10–15% a hulladék."}}]}</script>
 </head>
@@ -31,7 +32,8 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Konyhai átváltó – főoldal"><img src="/brand/favicon.svg" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
-    <nav aria-label="Fő menü">
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü megnyitása"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Fő menü">
       <a href="/#hozzavalok">Hozzávalók</a>
       <a href="/darab/">Darabos</a>
       <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a>
@@ -97,6 +99,7 @@
     <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · <a href="/adagszam-atszamolo/">Adagszám-átszámoló</a> · <a href="/amerikai-mertekek/">Amerikai mértékek</a> · © 2026 konyhaiatvalto.hu</p>
   </div>
 </footer>
+<script>(function(){var h=document.querySelector('.site-header'),b=document.getElementById('nav-toggle');if(!h||!b)return;function set(o){h.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'Menü bezárása':'Menü megnyitása')}b.addEventListener('click',function(){set(!h.classList.contains('open'))});h.addEventListener('click',function(e){if(e.target.closest('nav a'))set(false)});document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)})})()</script>
 
 </body>
 </html>

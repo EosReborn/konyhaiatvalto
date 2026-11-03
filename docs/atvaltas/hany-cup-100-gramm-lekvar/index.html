@@ -23,7 +23,8 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/brand/app-icon-180.png">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/assets/style.css?v=74a05b01">
+<script>document.documentElement.className+=" js"</script>
+<link rel="stylesheet" href="/assets/style.css?v=704313bc">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Főoldal","item":"https://konyhaiatvalto.hu/"},{"@type":"ListItem","position":2,"name":"Lekvár","item":"https://konyhaiatvalto.hu/hozzavalo/lekvar/"},{"@type":"ListItem","position":3,"name":"Hány cup 100 g lekvár?","item":"https://konyhaiatvalto.hu/atvaltas/hany-cup-100-gramm-lekvar/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hány cup 100 g lekvár?","acceptedAnswer":{"@type":"Answer","text":"100 g lekvár kb. 0,3 cup, vagyis kb. 0,8 dl."}},{"@type":"Question","name":"Hány gramm egy bögre lekvár?","acceptedAnswer":{"@type":"Answer","text":"Egy bögre (2,5 dl) lekvár kb. 325 g, vagyis 32,5 dkg."}},{"@type":"Question","name":"Hány gramm 1 dl lekvár?","acceptedAnswer":{"@type":"Answer","text":"1 dl lekvár kb. 130 g, vagyis 13 dkg."}},{"@type":"Question","name":"Mennyi a lekvár sűrűsége?","acceptedAnswer":{"@type":"Answer","text":"A lekvár sűrűsége átlagosan kb. 1,3 g/ml, vagyis 1 dl lekvár kb. 130 g. Az oldal ezzel az értékkel számol."}},{"@type":"Question","name":"Mennyire pontos ez az átváltás?","acceptedAnswer":{"@type":"Answer","text":"Tájékoztató érték. A víz 1 dl-e 100 g. A cukros vagy sós folyadékok, szószok, lekvárok és krémek ennél nehezebbek, mert töményebbek; a pontos érték márkánként kissé eltérhet."}}]}</script>
 </head>
@@ -31,7 +32,8 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Konyhai átváltó – főoldal"><img src="/brand/favicon.svg" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
-    <nav aria-label="Fő menü">
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü megnyitása"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Fő menü">
       <a href="/#hozzavalok">Hozzávalók</a>
       <a href="/darab/">Darabos</a>
       <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a>
@@ -120,6 +122,7 @@
     <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · <a href="/adagszam-atszamolo/">Adagszám-átszámoló</a> · <a href="/amerikai-mertekek/">Amerikai mértékek</a> · © 2026 konyhaiatvalto.hu</p>
   </div>
 </footer>
+<script>(function(){var h=document.querySelector('.site-header'),b=document.getElementById('nav-toggle');if(!h||!b)return;function set(o){h.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'Menü bezárása':'Menü megnyitása')}b.addEventListener('click',function(){set(!h.classList.contains('open'))});h.addEventListener('click',function(e){if(e.target.closest('nav a'))set(false)});document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)})})()</script>
 
 </body>
 </html>

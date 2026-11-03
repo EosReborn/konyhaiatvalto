@@ -131,6 +131,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="icon" href="${url('/favicon.ico')}" sizes="48x48">
 <link rel="apple-touch-icon" href="${url('/brand/app-icon-180.png')}">
 <link rel="manifest" href="${url('/manifest.webmanifest')}">
+<script>document.documentElement.className+=" js"</script>
 <link rel="stylesheet" href="${url('/assets/style.css')}?v=${CSS_V}">
 ${ld.map(ldScript).join('\n')}
 </head>
@@ -138,7 +139,8 @@ ${ld.map(ldScript).join('\n')}
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="${url('/')}" aria-label="Konyhai átváltó – főoldal"><img src="${url('/brand/favicon.svg')}" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
-    <nav aria-label="Fő menü">
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü megnyitása"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Fő menü">
       <a href="${url('/#hozzavalok')}">Hozzávalók</a>
       <a href="${url('/darab/')}">Darabos</a>
       <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a>
@@ -157,6 +159,7 @@ ${body}
     <p><a href="${url('/')}">Főoldal</a> · <a href="${url('/mertekegysegek/')}">Mértékegységek</a> · <a href="${url('/#hozzavalok')}">Hozzávalók</a> · <a href="${url('/darab/')}">Darabos hozzávalók</a> · <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a> · <a href="${url('/adagszam-atszamolo/')}">Adagszám-átszámoló</a> · <a href="${url('/amerikai-mertekek/')}">Amerikai mértékek</a> · © ${NOW.getFullYear()} konyhaiatvalto.hu</p>
   </div>
 </footer>
+<script>(function(){var h=document.querySelector('.site-header'),b=document.getElementById('nav-toggle');if(!h||!b)return;function set(o){h.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'Menü bezárása':'Menü megnyitása')}b.addEventListener('click',function(){set(!h.classList.contains('open'))});h.addEventListener('click',function(e){if(e.target.closest('nav a'))set(false)});document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)})})()</script>
 ${scripts}
 </body>
 </html>

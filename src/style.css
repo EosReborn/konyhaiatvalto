@@ -170,10 +170,23 @@ textarea:focus { outline: 3px solid var(--accent-soft); border-color: var(--acce
 @media (max-width: 639px) { .conv .swap { min-height: 40px; } }
 @media (min-width: 640px) { .swap-label { display: none; } }
 
+@media (max-width: 639px) { .facts { display: none; } }
+
+/* hamburger menü (csak telefonon, JS-sel; JS nélkül a menü kiírva marad) */
+.nav-toggle { display: none; }
 @media (max-width: 639px) {
-  .facts { display: none; }
-  .site-header nav { flex-wrap: nowrap; overflow-x: auto; width: 100%; margin-left: 0; white-space: nowrap; scrollbar-width: none; }
-  .site-header nav::-webkit-scrollbar { display: none; }
-  .site-header .wrap { gap: 0 24px; padding-top: 6px; padding-bottom: 0; }
-  .site-header nav a { padding: 10px 2px; min-height: 44px; font-size: .92rem; }
+  .nav-toggle {
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; margin-left: auto;
+    width: 48px; height: 48px; padding: 0 12px; background: transparent; border: 1px solid var(--line);
+    border-radius: 12px; cursor: pointer;
+  }
+  .nav-toggle span { display: block; height: 2px; background: var(--ink); border-radius: 2px; transition: transform .2s, opacity .2s; }
+  .site-header.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .site-header.open .nav-toggle span:nth-child(2) { opacity: 0; }
+  .site-header.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .site-header .wrap { flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px; }
+  .site-header nav { width: 100%; margin-left: 0; flex-direction: column; gap: 0; }
+  .site-header nav a { display: block; padding: 14px 4px; min-height: 48px; border-top: 1px solid var(--line); font-size: 1.05rem; }
+  .js .site-header nav { display: none; }
+  .js .site-header.open nav { display: flex; }
 }
