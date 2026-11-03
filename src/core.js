@@ -57,7 +57,24 @@
     return r === 0 ? x : r;
   }
 
+  /* Sütőhőfok: gázfokozat (UK Gas Mark skála) -> °C */
+  var GAS = [[0.25, 110], [0.5, 120], [1, 140], [2, 150], [3, 170], [4, 180], [5, 190], [6, 200], [7, 220], [8, 230], [9, 240]];
+  function cToF(c) { return c * 9 / 5 + 32; }
+  function fToC(f) { return (f - 32) * 5 / 9; }
+  function gasFromC(c) {
+    var best = GAS[0];
+    for (var i = 0; i < GAS.length; i++) if (Math.abs(GAS[i][1] - c) < Math.abs(best[1] - c)) best = GAS[i];
+    return best[0];
+  }
+  function cFromGas(m) {
+    var best = GAS[0];
+    for (var i = 0; i < GAS.length; i++) if (Math.abs(GAS[i][0] - m) < Math.abs(best[0] - m)) best = GAS[i];
+    return best[1];
+  }
+  function gasLabel(m) { return m === 0.25 ? '1/4' : m === 0.5 ? '1/2' : String(m); }
+
   var KA = {
+    GAS: GAS, cToF: cToF, fToC: fToC, gasFromC: gasFromC, cFromGas: cFromGas, gasLabel: gasLabel,
     UNITS: UNITS,
     VOLUME_ORDER: VOLUME_ORDER,
     MASS_ORDER: MASS_ORDER,

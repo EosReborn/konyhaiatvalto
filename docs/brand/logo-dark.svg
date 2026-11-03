@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 220" role="img" aria-labelledby="title">
+  <title id="title">Konyhai Átváltó logó sötét háttérre</title>
+  <rect width="820" height="220" rx="28" fill="#24332C"/>
+  <g transform="translate(20 20)">
+    <circle cx="90" cy="90" r="78" fill="#F8F0E3"/>
+    <path d="M31 59a62 62 0 1 1 15 74" fill="none" stroke="#7EAE88" stroke-width="12" stroke-linecap="round"/>
+    <path d="m36 134-4-27 26 8" fill="none" stroke="#7EAE88" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M63 62h61l-8 88H71z" fill="#E86F51"/><path d="M59 62h69" stroke="#8E362E" stroke-width="8" stroke-linecap="round"/>
+    <path d="M69 86h37M67 109h39M65 132h42" stroke="#FFF8ED" stroke-width="7" stroke-linecap="round" opacity=".92"/>
+    <path d="M124 78c23-3 28 29 5 35" fill="none" stroke="#C94F3E" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <text x="215" y="105" fill="#FFF8ED" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" letter-spacing="-1.5">Konyhai</text>
+  <text x="215" y="160" fill="#7EAE88" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" letter-spacing="-1.5">Átváltó</text>
+</svg>

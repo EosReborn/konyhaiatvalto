@@ -42,72 +42,886 @@
     }
   ],
   "ingredients": [
-    { "slug": "liszt", "name": "liszt", "density": 0.55, "cat": "lisztek", "note": "A számítás a búza finomlisztre (BL55) vonatkozik. A teljes kiőrlésű vagy a rozsliszt kicsit eltérő súlyú, azokhoz külön oldalt találsz." },
-    { "slug": "teljes-kiorlesu-liszt", "name": "teljes kiőrlésű liszt", "density": 0.52, "cat": "lisztek" },
-    { "slug": "rozsliszt", "name": "rozsliszt", "density": 0.5, "cat": "lisztek" },
-    { "slug": "kukoricaliszt", "name": "kukoricaliszt", "density": 0.6, "cat": "lisztek" },
-    { "slug": "rizsliszt", "name": "rizsliszt", "density": 0.6, "cat": "lisztek" },
-    { "slug": "zabliszt", "name": "zabliszt", "density": 0.45, "cat": "lisztek" },
-    { "slug": "kemenyito", "name": "keményítő", "density": 0.6, "cat": "lisztek", "note": "Az érték a kukorica- (étkezési) keményítőre vonatkozik; a burgonyakeményítő hasonló." },
-
-    { "slug": "cukor", "name": "cukor", "density": 0.85, "cat": "cukor", "note": "Az érték a kristálycukorra vonatkozik." },
-    { "slug": "porcukor", "name": "porcukor", "density": 0.55, "cat": "cukor", "note": "Szitálatlan, bögrébe nyomott porcukor ennél is nehezebb lehet." },
-    { "slug": "barna-cukor", "name": "barna cukor", "density": 0.8, "cat": "cukor", "note": "Lazán kimérve számolunk; a megtömörített barna cukor akár 0,9 g/ml is lehet." },
-    { "slug": "mez", "name": "méz", "density": 1.4, "cat": "cukor" },
-    { "slug": "kakaopor", "name": "kakaópor", "density": 0.45, "cat": "cukor" },
-    { "slug": "csokolade", "name": "darabolt csokoládé", "density": 0.6, "cat": "cukor", "note": "Az érték a durvára vágott vagy reszelt csokoládéra, illetve a csokidarabkákra (chips) vonatkozik." },
-
-    { "slug": "tej", "name": "tej", "density": 1.03, "cat": "tejtermek" },
-    { "slug": "tejfol", "name": "tejföl", "density": 1.03, "cat": "tejtermek" },
-    { "slug": "joghurt", "name": "joghurt", "density": 1.03, "cat": "tejtermek" },
-    { "slug": "tejszin", "name": "tejszín", "density": 1, "cat": "tejtermek" },
-    { "slug": "turo", "name": "túró", "density": 0.95, "cat": "tejtermek", "note": "Az érték a normál, morzsolt túróra vonatkozik; a krémes, simára kevert túró nehezebb." },
-    { "slug": "mascarpone", "name": "mascarpone", "density": 1, "cat": "tejtermek" },
-    { "slug": "reszelt-sajt", "name": "reszelt sajt", "density": 0.4, "cat": "tejtermek", "note": "Az érték a trappista jellegű, laza reszelékre vonatkozik. Lenyomkodva a reszelt sajt jóval többet nyom." },
-    { "slug": "tejpor", "name": "tejpor", "density": 0.5, "cat": "tejtermek" },
-    { "slug": "suritett-tej", "name": "sűrített tej", "density": 1.3, "cat": "tejtermek" },
-
-    { "slug": "vaj", "name": "vaj", "density": 0.95, "cat": "zsiradek", "note": "Szobahőmérsékletű, kockákra vágott vaj. Megolvasztva a sűrűsége kb. 0,91 g/ml." },
-    { "slug": "margarin", "name": "margarin", "density": 0.95, "cat": "zsiradek" },
-    { "slug": "olaj", "name": "olaj", "density": 0.92, "cat": "zsiradek", "note": "Étolajra (napraforgó, repce) vonatkozik; az olívaolaj is nagyjából ennyi." },
-    { "slug": "zsir", "name": "zsír", "density": 0.92, "cat": "zsiradek" },
-    { "slug": "majonez", "name": "majonéz", "density": 0.95, "cat": "zsiradek" },
-
-    { "slug": "viz", "name": "víz", "density": 1, "cat": "folyadek", "note": "A víz a mérés alapja: 1 ml víz pontosan 1 g, így 1 dl víz 100 g." },
-    { "slug": "citromle", "name": "citromlé", "density": 1.03, "cat": "folyadek" },
-    { "slug": "ecet", "name": "ecet", "density": 1.01, "cat": "folyadek" },
-    { "slug": "ketchup", "name": "ketchup", "density": 1.1, "cat": "folyadek" },
-    { "slug": "mustar", "name": "mustár", "density": 1.05, "cat": "folyadek" },
-    { "slug": "paradicsompure", "name": "paradicsompüré", "density": 1.1, "cat": "folyadek" },
-    { "slug": "lekvar", "name": "lekvár", "density": 1.3, "cat": "folyadek" },
-    { "slug": "mogyorovaj", "name": "mogyoróvaj", "density": 1.1, "cat": "folyadek" },
-
-    { "slug": "rizs", "name": "rizs", "density": 0.85, "cat": "gabona", "note": "Nyers, hámozott (fehér) rizsre vonatkozik; a főtt rizs kb. háromszor annyit nyom." },
-    { "slug": "zabpehely", "name": "zabpehely", "density": 0.35, "cat": "gabona" },
-    { "slug": "busadara", "name": "búzadara", "density": 0.7, "cat": "gabona" },
-    { "slug": "kukoricadara", "name": "kukoricadara", "density": 0.65, "cat": "gabona" },
-    { "slug": "zsemlemorzsa", "name": "zsemlemorzsa", "density": 0.45, "cat": "gabona" },
-    { "slug": "lencse", "name": "lencse", "density": 0.8, "cat": "gabona" },
-    { "slug": "bab", "name": "szárazbab", "density": 0.8, "cat": "gabona" },
-    { "slug": "kuszkusz", "name": "kuszkusz", "density": 0.7, "cat": "gabona" },
-    { "slug": "szaraz-teszta", "name": "száraz tészta", "density": 0.45, "cat": "gabona", "note": "Rövid tésztákra (kifli, penne, fodros nagykocka) vonatkozik; a spagetti és a hosszú tészták nem mérhetők jól bögrével." },
-
-    { "slug": "mazsola", "name": "mazsola", "density": 0.65, "cat": "magvak" },
-    { "slug": "dio", "name": "darált dió", "density": 0.4, "cat": "magvak" },
-    { "slug": "mandula", "name": "őrölt mandula", "density": 0.4, "cat": "magvak" },
-    { "slug": "mak", "name": "darált mák", "density": 0.5, "cat": "magvak" },
-    { "slug": "kokuszreszelek", "name": "kókuszreszelék", "density": 0.35, "cat": "magvak" },
-    { "slug": "szezammag", "name": "szezámmag", "density": 0.6, "cat": "magvak" },
-    { "slug": "napraforgomag", "name": "napraforgómag", "density": 0.5, "cat": "magvak" },
-    { "slug": "chiamag", "name": "chiamag", "density": 0.65, "cat": "magvak" },
-
-    { "slug": "so", "name": "só", "density": 1.2, "cat": "fuszer", "spice": true, "note": "Finomszemcsés konyhasóra vonatkozik; a durva tengeri só szemcséi között több a levegő, abból valamivel kevesebb fér a kanálba." },
-    { "slug": "sutopor", "name": "sütőpor", "density": 0.8, "cat": "fuszer", "spice": true, "note": "Egy csomag sütőpor általában 12 g, ami kb. 3 teáskanálnyi." },
-    { "slug": "szodabikarbona", "name": "szódabikarbóna", "density": 1.1, "cat": "fuszer", "spice": true },
-    { "slug": "eleszto", "name": "szárított élesztő", "density": 0.6, "cat": "fuszer", "spice": true, "note": "A porélesztőre vonatkozik. Egy 7 g-os zacskó szárított élesztő kb. 2 teáskanál." },
-    { "slug": "fahej", "name": "fahéj", "density": 0.5, "cat": "fuszer", "spice": true, "note": "Őrölt fahéjra vonatkozik." },
-    { "slug": "pirospaprika", "name": "pirospaprika", "density": 0.5, "cat": "fuszer", "spice": true, "note": "Az őrölt, édes fűszerpaprikára vonatkozik." },
-    { "slug": "fekete-bors", "name": "őrölt fekete bors", "density": 0.5, "cat": "fuszer", "spice": true },
-    { "slug": "vanilias-cukor", "name": "vaníliás cukor", "density": 0.8, "cat": "fuszer", "spice": true, "note": "Egy csomag vaníliás cukor általában 8–10 g, ami kb. 2 teáskanálnyi." }
+    {
+      "slug": "liszt",
+      "name": "liszt",
+      "density": 0.55,
+      "cat": "lisztek",
+      "note": "A számítás a búza finomlisztre (BL55) vonatkozik. A teljes kiőrlésű vagy a rozsliszt kicsit eltérő súlyú, azokhoz külön oldalt találsz."
+    },
+    {
+      "slug": "teljes-kiorlesu-liszt",
+      "name": "teljes kiőrlésű liszt",
+      "density": 0.52,
+      "cat": "lisztek"
+    },
+    {
+      "slug": "rozsliszt",
+      "name": "rozsliszt",
+      "density": 0.5,
+      "cat": "lisztek"
+    },
+    {
+      "slug": "kukoricaliszt",
+      "name": "kukoricaliszt",
+      "density": 0.6,
+      "cat": "lisztek"
+    },
+    {
+      "slug": "rizsliszt",
+      "name": "rizsliszt",
+      "density": 0.6,
+      "cat": "lisztek"
+    },
+    {
+      "slug": "zabliszt",
+      "name": "zabliszt",
+      "density": 0.45,
+      "cat": "lisztek"
+    },
+    {
+      "slug": "kemenyito",
+      "name": "keményítő",
+      "density": 0.6,
+      "cat": "lisztek",
+      "note": "Az érték a kukorica- (étkezési) keményítőre vonatkozik; a burgonyakeményítő hasonló."
+    },
+    {
+      "slug": "cukor",
+      "name": "cukor",
+      "density": 0.85,
+      "cat": "cukor",
+      "note": "Az érték a kristálycukorra vonatkozik."
+    },
+    {
+      "slug": "porcukor",
+      "name": "porcukor",
+      "density": 0.55,
+      "cat": "cukor",
+      "note": "Szitálatlan, bögrébe nyomott porcukor ennél is nehezebb lehet."
+    },
+    {
+      "slug": "barna-cukor",
+      "name": "barna cukor",
+      "density": 0.8,
+      "cat": "cukor",
+      "note": "Lazán kimérve számolunk; a megtömörített barna cukor akár 0,9 g/ml is lehet."
+    },
+    {
+      "slug": "mez",
+      "name": "méz",
+      "density": 1.4,
+      "cat": "cukor"
+    },
+    {
+      "slug": "kakaopor",
+      "name": "kakaópor",
+      "density": 0.45,
+      "cat": "cukor"
+    },
+    {
+      "slug": "csokolade",
+      "name": "darabolt csokoládé",
+      "density": 0.6,
+      "cat": "cukor",
+      "note": "Az érték a durvára vágott vagy reszelt csokoládéra, illetve a csokidarabkákra (chips) vonatkozik."
+    },
+    {
+      "slug": "tej",
+      "name": "tej",
+      "density": 1.03,
+      "cat": "tejtermek"
+    },
+    {
+      "slug": "tejfol",
+      "name": "tejföl",
+      "density": 1.03,
+      "cat": "tejtermek"
+    },
+    {
+      "slug": "joghurt",
+      "name": "joghurt",
+      "density": 1.03,
+      "cat": "tejtermek"
+    },
+    {
+      "slug": "tejszin",
+      "name": "tejszín",
+      "density": 1,
+      "cat": "tejtermek"
+    },
+    {
+      "slug": "turo",
+      "name": "túró",
+      "density": 0.95,
+      "cat": "tejtermek",
+      "note": "Az érték a normál, morzsolt túróra vonatkozik; a krémes, simára kevert túró nehezebb."
+    },
+    {
+      "slug": "mascarpone",
+      "name": "mascarpone",
+      "density": 1,
+      "cat": "tejtermek"
+    },
+    {
+      "slug": "reszelt-sajt",
+      "name": "reszelt sajt",
+      "density": 0.4,
+      "cat": "tejtermek",
+      "note": "Az érték a trappista jellegű, laza reszelékre vonatkozik. Lenyomkodva a reszelt sajt jóval többet nyom."
+    },
+    {
+      "slug": "tejpor",
+      "name": "tejpor",
+      "density": 0.5,
+      "cat": "tejtermek"
+    },
+    {
+      "slug": "suritett-tej",
+      "name": "sűrített tej",
+      "density": 1.3,
+      "cat": "tejtermek"
+    },
+    {
+      "slug": "vaj",
+      "name": "vaj",
+      "density": 0.95,
+      "cat": "zsiradek",
+      "note": "Szobahőmérsékletű, kockákra vágott vaj. Megolvasztva a sűrűsége kb. 0,91 g/ml."
+    },
+    {
+      "slug": "margarin",
+      "name": "margarin",
+      "density": 0.95,
+      "cat": "zsiradek"
+    },
+    {
+      "slug": "olaj",
+      "name": "olaj",
+      "density": 0.92,
+      "cat": "zsiradek",
+      "note": "Étolajra (napraforgó, repce) vonatkozik; az olívaolaj is nagyjából ennyi."
+    },
+    {
+      "slug": "zsir",
+      "name": "zsír",
+      "density": 0.92,
+      "cat": "zsiradek"
+    },
+    {
+      "slug": "majonez",
+      "name": "majonéz",
+      "density": 0.95,
+      "cat": "zsiradek"
+    },
+    {
+      "slug": "viz",
+      "name": "víz",
+      "density": 1,
+      "cat": "folyadek",
+      "note": "A víz a mérés alapja: 1 ml víz pontosan 1 g, így 1 dl víz 100 g."
+    },
+    {
+      "slug": "citromle",
+      "name": "citromlé",
+      "density": 1.03,
+      "cat": "folyadek"
+    },
+    {
+      "slug": "ecet",
+      "name": "ecet",
+      "density": 1.01,
+      "cat": "folyadek"
+    },
+    {
+      "slug": "ketchup",
+      "name": "ketchup",
+      "density": 1.1,
+      "cat": "folyadek"
+    },
+    {
+      "slug": "mustar",
+      "name": "mustár",
+      "density": 1.05,
+      "cat": "folyadek"
+    },
+    {
+      "slug": "paradicsompure",
+      "name": "paradicsompüré",
+      "density": 1.1,
+      "cat": "folyadek"
+    },
+    {
+      "slug": "lekvar",
+      "name": "lekvár",
+      "density": 1.3,
+      "cat": "folyadek"
+    },
+    {
+      "slug": "mogyorovaj",
+      "name": "mogyoróvaj",
+      "density": 1.1,
+      "cat": "folyadek"
+    },
+    {
+      "slug": "rizs",
+      "name": "rizs",
+      "density": 0.85,
+      "cat": "gabona",
+      "note": "Nyers, hámozott (fehér) rizsre vonatkozik; a főtt rizs kb. háromszor annyit nyom."
+    },
+    {
+      "slug": "zabpehely",
+      "name": "zabpehely",
+      "density": 0.35,
+      "cat": "gabona"
+    },
+    {
+      "slug": "busadara",
+      "name": "búzadara",
+      "density": 0.7,
+      "cat": "gabona"
+    },
+    {
+      "slug": "kukoricadara",
+      "name": "kukoricadara",
+      "density": 0.65,
+      "cat": "gabona"
+    },
+    {
+      "slug": "zsemlemorzsa",
+      "name": "zsemlemorzsa",
+      "density": 0.45,
+      "cat": "gabona"
+    },
+    {
+      "slug": "lencse",
+      "name": "lencse",
+      "density": 0.8,
+      "cat": "gabona"
+    },
+    {
+      "slug": "bab",
+      "name": "szárazbab",
+      "density": 0.8,
+      "cat": "gabona"
+    },
+    {
+      "slug": "kuszkusz",
+      "name": "kuszkusz",
+      "density": 0.7,
+      "cat": "gabona"
+    },
+    {
+      "slug": "szaraz-teszta",
+      "name": "száraz tészta",
+      "density": 0.45,
+      "cat": "gabona",
+      "note": "Rövid tésztákra (kifli, penne, fodros nagykocka) vonatkozik; a spagetti és a hosszú tészták nem mérhetők jól bögrével."
+    },
+    {
+      "slug": "mazsola",
+      "name": "mazsola",
+      "density": 0.65,
+      "cat": "magvak"
+    },
+    {
+      "slug": "dio",
+      "name": "darált dió",
+      "density": 0.4,
+      "cat": "magvak"
+    },
+    {
+      "slug": "mandula",
+      "name": "őrölt mandula",
+      "density": 0.4,
+      "cat": "magvak"
+    },
+    {
+      "slug": "mak",
+      "name": "darált mák",
+      "density": 0.5,
+      "cat": "magvak"
+    },
+    {
+      "slug": "kokuszreszelek",
+      "name": "kókuszreszelék",
+      "density": 0.35,
+      "cat": "magvak"
+    },
+    {
+      "slug": "szezammag",
+      "name": "szezámmag",
+      "density": 0.6,
+      "cat": "magvak"
+    },
+    {
+      "slug": "napraforgomag",
+      "name": "napraforgómag",
+      "density": 0.5,
+      "cat": "magvak"
+    },
+    {
+      "slug": "chiamag",
+      "name": "chiamag",
+      "density": 0.65,
+      "cat": "magvak"
+    },
+    {
+      "slug": "so",
+      "name": "só",
+      "density": 1.2,
+      "cat": "fuszer",
+      "spice": true,
+      "note": "Finomszemcsés konyhasóra vonatkozik; a durva tengeri só szemcséi között több a levegő, abból valamivel kevesebb fér a kanálba."
+    },
+    {
+      "slug": "sutopor",
+      "name": "sütőpor",
+      "density": 0.8,
+      "cat": "fuszer",
+      "spice": true,
+      "note": "Egy csomag sütőpor általában 12 g, ami kb. 3 teáskanálnyi."
+    },
+    {
+      "slug": "szodabikarbona",
+      "name": "szódabikarbóna",
+      "density": 1.1,
+      "cat": "fuszer",
+      "spice": true
+    },
+    {
+      "slug": "eleszto",
+      "name": "szárított élesztő",
+      "density": 0.6,
+      "cat": "fuszer",
+      "spice": true,
+      "note": "A porélesztőre vonatkozik. Egy 7 g-os zacskó szárított élesztő kb. 2 teáskanál."
+    },
+    {
+      "slug": "fahej",
+      "name": "fahéj",
+      "density": 0.5,
+      "cat": "fuszer",
+      "spice": true,
+      "note": "Őrölt fahéjra vonatkozik."
+    },
+    {
+      "slug": "pirospaprika",
+      "name": "pirospaprika",
+      "density": 0.5,
+      "cat": "fuszer",
+      "spice": true,
+      "note": "Az őrölt, édes fűszerpaprikára vonatkozik."
+    },
+    {
+      "slug": "fekete-bors",
+      "name": "őrölt fekete bors",
+      "density": 0.5,
+      "cat": "fuszer",
+      "spice": true
+    },
+    {
+      "slug": "vanilias-cukor",
+      "name": "vaníliás cukor",
+      "density": 0.8,
+      "cat": "fuszer",
+      "spice": true,
+      "note": "Egy csomag vaníliás cukor általában 8–10 g, ami kb. 2 teáskanálnyi."
+    }
+  ],
+  "pieces": [
+    {
+      "slug": "kozepes-tojas",
+      "item": "közepes tojás",
+      "unit": "",
+      "grams": 50,
+      "group": "Tojás",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          20,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ]
+      ],
+      "note": "Az érték a héj nélküli tojás tömege; héjjal egy M méretű tojás kb. 58 g. Az EU-méretek (héjjal): S 53 g alatt, M 53–63 g, L 63–73 g, XL 73 g felett. A sütőrecepteknél általában M méretű tojással számolnak."
+    },
+    {
+      "slug": "nagy-tojas",
+      "item": "nagy tojás",
+      "unit": "",
+      "grams": 60,
+      "group": "Tojás",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          20,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ]
+      ],
+      "note": "Az érték a héj nélküli tojás tömege; héjjal egy L méretű tojás kb. 68 g. Az EU-méretek (héjjal): S 53 g alatt, M 53–63 g, L 63–73 g, XL 73 g felett."
+    },
+    {
+      "slug": "tojassargaja",
+      "item": "tojássárgája",
+      "unit": "",
+      "grams": 18,
+      "group": "Tojás",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          20,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ]
+      ],
+      "note": "Egy közepes tojás sárgája kb. 18–20 g, a fehérje kb. 30–33 g."
+    },
+    {
+      "slug": "tojasfeherje",
+      "item": "tojásfehérje",
+      "unit": "",
+      "grams": 32,
+      "group": "Tojás",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          20,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ]
+      ],
+      "note": "Egy közepes tojás fehérje kb. 30–33 g, a sárgája kb. 18–20 g."
+    },
+    {
+      "slug": "kozepes-burgonya",
+      "item": "közepes burgonya",
+      "unit": "",
+      "grams": 150,
+      "group": "Zöldség és gyümölcs",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          25,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ],
+        [
+          1,
+          "kg"
+        ]
+      ],
+      "note": "Hámozatlan, közepes méretű burgonya; a hámozás után kb. 10–15% a hulladék."
+    },
+    {
+      "slug": "kozepes-voroshagyma",
+      "item": "közepes vöröshagyma",
+      "unit": "",
+      "grams": 110,
+      "group": "Zöldség és gyümölcs",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          25,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ],
+        [
+          1,
+          "kg"
+        ]
+      ],
+      "note": "Hámozatlan, közepes fej vöröshagyma; hámozva kb. 100 g."
+    },
+    {
+      "slug": "kozepes-sargarepa",
+      "item": "közepes sárgarépa",
+      "unit": "",
+      "grams": 80,
+      "group": "Zöldség és gyümölcs",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          25,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ],
+        [
+          1,
+          "kg"
+        ]
+      ],
+      "note": "Meghámozott, közepes sárgarépa."
+    },
+    {
+      "slug": "kozepes-paradicsom",
+      "item": "közepes paradicsom",
+      "unit": "",
+      "grams": 120,
+      "group": "Zöldség és gyümölcs",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          25,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ],
+        [
+          1,
+          "kg"
+        ]
+      ]
+    },
+    {
+      "slug": "kozepes-alma",
+      "item": "közepes alma",
+      "unit": "",
+      "grams": 180,
+      "group": "Zöldség és gyümölcs",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          25,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ],
+        [
+          1,
+          "kg"
+        ]
+      ],
+      "note": "Egész, magházzal együtt mért alma; megtisztítva kb. 15% a hulladék."
+    },
+    {
+      "slug": "kozepes-banan",
+      "item": "közepes banán",
+      "unit": "",
+      "grams": 120,
+      "group": "Zöldség és gyümölcs",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          100,
+          "g"
+        ],
+        [
+          25,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ],
+        [
+          1,
+          "kg"
+        ]
+      ],
+      "note": "Meghámozott banán; héjjal együtt kb. 180 g."
+    },
+    {
+      "slug": "kozepes-citrom",
+      "item": "közepes citrom",
+      "unit": "",
+      "grams": 100,
+      "group": "Zöldség és gyümölcs",
+      "qs": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rev": [
+        [
+          20,
+          "dkg"
+        ],
+        [
+          50,
+          "dkg"
+        ]
+      ]
+    },
+    {
+      "slug": "citrom-leve",
+      "item": "citrom leve",
+      "unit": "",
+      "grams": 45,
+      "group": "Zöldség és gyümölcs",
+      "qs": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "note": "Egy közepes citrom leve kb. 40–50 ml, ami ugyanennyi gramm; a reszelt héja kb. 1 evőkanál (kb. 6 g)."
+    },
+    {
+      "slug": "gerezd-fokhagyma",
+      "item": "fokhagyma",
+      "unit": "gerezd",
+      "grams": 4,
+      "group": "Zöldség és gyümölcs",
+      "qs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10
+      ],
+      "rev": [
+        [
+          20,
+          "g"
+        ],
+        [
+          50,
+          "g"
+        ],
+        [
+          100,
+          "g"
+        ]
+      ],
+      "note": "Közepes méretű, hámozott gerezd; a nagy gerezd 6–8 g is lehet."
+    },
+    {
+      "slug": "csomag-vanilias-cukor",
+      "item": "vaníliás cukor",
+      "unit": "csomag",
+      "grams": 8,
+      "group": "Csomagolt hozzávalók",
+      "qs": [
+        1,
+        2,
+        3
+      ],
+      "note": "Egy csomag vaníliás cukor általában 8–10 g, kb. 2 teáskanálnyi."
+    },
+    {
+      "slug": "csomag-sutopor",
+      "item": "sütőpor",
+      "unit": "csomag",
+      "grams": 12,
+      "group": "Csomagolt hozzávalók",
+      "qs": [
+        1,
+        2,
+        3
+      ],
+      "note": "Egy csomag sütőpor általában 12 g, kb. 3 teáskanálnyi, és 500 g lisztet kelleszt."
+    },
+    {
+      "slug": "zacsko-szaritott-eleszto",
+      "item": "szárított élesztő",
+      "unit": "zacskó",
+      "grams": 7,
+      "group": "Csomagolt hozzávalók",
+      "qs": [
+        1,
+        2,
+        3
+      ],
+      "note": "Egy zacskó szárított (instant) élesztő általában 7 g, ami kb. 2 teáskanál, és 500 g lisztet kelleszt."
+    },
+    {
+      "slug": "kocka-friss-eleszto",
+      "item": "friss élesztő",
+      "unit": "kocka",
+      "grams": 42,
+      "group": "Csomagolt hozzávalók",
+      "qs": [
+        1,
+        2,
+        3
+      ],
+      "note": "Egy kocka friss élesztő 42 g, ami kb. 14 g szárított élesztőnek felel meg."
+    },
+    {
+      "slug": "csomag-vaj",
+      "item": "vaj",
+      "unit": "csomag",
+      "grams": 250,
+      "group": "Csomagolt hozzávalók",
+      "qs": [
+        1,
+        2,
+        3
+      ],
+      "note": "Az általános, 250 g-os csomagolású vajra vonatkozik; a kisebb kiszerelés 125 g."
+    },
+    {
+      "slug": "csomag-mascarpone",
+      "item": "mascarpone",
+      "unit": "csomag",
+      "grams": 250,
+      "group": "Csomagolt hozzávalók",
+      "qs": [
+        1,
+        2,
+        3
+      ],
+      "note": "A legáltalánosabb, 250 g-os kiszerelés."
+    },
+    {
+      "slug": "kis-pohar-tejfol",
+      "item": "tejföl",
+      "unit": "kis pohár",
+      "grams": 175,
+      "group": "Csomagolt hozzávalók",
+      "qs": [
+        1,
+        2,
+        3
+      ],
+      "note": "A boltokban kapható kis pohár tejföl általában 175 g; a nagy pohár 350 g."
+    }
   ]
 }

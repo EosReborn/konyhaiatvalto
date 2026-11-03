@@ -3,7 +3,9 @@
 Statikus (szerver nélküli) konyhai átváltó oldal: bögre, pohár, evőkanál, teáskanál, ml, dl, liter, g, dkg és kg között, **60 hozzávaló** sűrűségével.
 
 - **Főoldal**: interaktív átváltó (megosztható linkkel: `?e=liszt&a=1&f=bogre&t=dkg`), hozzávalók táblázata szűréssel, GYIK.
-- **~1150 generált aloldal**: minden gyakori kérdésre külön oldal (pl. `/atvaltas/hany-dkg-egy-bogre-liszt/`), saját `title`-lel, meta leírással, `FAQPage` és `BreadcrumbList` JSON-LD-vel.
+- **~1380 generált aloldal**: minden gyakori kérdésre külön oldal (pl. `/atvaltas/hany-dkg-egy-bogre-liszt/`), saját `title`-lel, meta leírással, `FAQPage` és `BreadcrumbList` JSON-LD-vel.
+- **Darabos hozzávalók** (`/darab/`): 20 tétel (tojás, burgonya, gerezd fokhagyma, csomag sütőpor…), kérdés-oldalakkal („Hány gramm 3 közepes tojás?"). Adatok: `src/ingredients.json` `pieces` listája.
+- **Sütőhőfok-átváltó** (`/suto-homerseklet-atvalto/`): °C, légkeveréses °C, °F és gázfokozat kalkulátor + 68 generált oldal („180 °C hány °F?").
 - **Hozzávaló-oldalak** (`/hozzavalo/liszt/`), **mértékegység-oldalak** (`/atvaltas/hany-dl-egy-bogre/`), `sitemap.xml`, `robots.txt`, `404.html`.
 - Mobilbarát, sötét módot is támogat, a kész oldalak működéséhez nem kell JavaScript (csak a főoldali kalkulátorhoz).
 
@@ -15,7 +17,9 @@ Mértékek: 1 bögre = 2,5 dl, 1 pohár = 2 dl, 1 evőkanál = 15 ml, 1 teáskan
 src/
   core.js            közös átváltó-logika (böngésző + generátor)
   ingredients.json   hozzávalók, sűrűségek (g/ml), kategóriák, megjegyzések
-  app.js, style.css  főoldali kalkulátor és stíluslap
+  app.js, oven.js    főoldali kalkulátor, sütőhőfok-kalkulátor
+  style.css          stíluslap
+  brand/             logó, ikonok, közösségi kép (arculati csomag)
 build.js             oldalgenerátor (Node, függőség nélkül)
 docs/                a generált, feltölthető oldal (ezt kell publikálni)
 ```

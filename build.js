@@ -78,7 +78,7 @@ function ext(u, ml) {
 
 const hash = (s) => crypto.createHash('md5').update(s).digest('hex').slice(0, 8);
 const CSS_V = hash(fs.readFileSync(path.join(SRC, 'style.css')));
-const JS_V = hash(fs.readFileSync(path.join(SRC, 'app.js')) + fs.readFileSync(path.join(SRC, 'core.js')));
+const JS_V = hash(fs.readFileSync(path.join(SRC, 'app.js')) + fs.readFileSync(path.join(SRC, 'core.js')) + fs.readFileSync(path.join(SRC, 'oven.js')));
 
 /* ------------------------------------------------------------ fájlkezelés */
 
@@ -121,19 +121,28 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
-<meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#c8402a">
+<meta property="og:image" content="${abs('/brand/social-preview.png')}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F8F0E3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c2420" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="${url('/favicon.svg')}" type="image/svg+xml">
+<link rel="icon" href="${url('/favicon.ico')}" sizes="48x48">
+<link rel="apple-touch-icon" href="${url('/brand/app-icon-180.png')}">
+<link rel="manifest" href="${url('/manifest.webmanifest')}">
 <link rel="stylesheet" href="${url('/assets/style.css')}?v=${CSS_V}">
 ${ld.map(ldScript).join('\n')}
 </head>
 <body>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="${url('/')}"><svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#c8402a"/><path d="M9 9h14l-2 15a2 2 0 0 1-2 1.8h-6a2 2 0 0 1-2-1.8z" fill="#fff"/><path d="M10.2 16h11.6" stroke="#c8402a" stroke-width="1.6"/></svg>Konyhai <span>átváltó</span></a>
+    <a class="brand" href="${url('/')}" aria-label="Konyhai átváltó – főoldal"><picture><source media="(prefers-color-scheme: dark)" srcset="${url('/brand/logo-dark.svg')}"><img src="${url('/brand/logo.svg')}" alt="Konyhai átváltó" width="164" height="44"></picture></a>
     <nav aria-label="Fő menü">
       <a href="${url('/')}">Átváltó</a>
       <a href="${url('/#hozzavalok')}">Hozzávalók</a>
+      <a href="${url('/darab/')}">Darabos</a>
+      <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a>
       <a href="${url('/mertekegysegek/')}">Mértékegységek</a>
     </nav>
   </div>
@@ -145,7 +154,7 @@ ${body}
   <div class="wrap">
     <p><strong>${BRAND}</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
     <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
-    <p><a href="${url('/')}">Főoldal</a> · <a href="${url('/mertekegysegek/')}">Mértékegységek</a> · <a href="${url('/#hozzavalok')}">Hozzávalók</a> · © ${NOW.getFullYear()} konyhaiatvalto.hu</p>
+    <p><a href="${url('/')}">Főoldal</a> · <a href="${url('/mertekegysegek/')}">Mértékegységek</a> · <a href="${url('/#hozzavalok')}">Hozzávalók</a> · <a href="${url('/darab/')}">Darabos hozzávalók</a> · <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a> · © ${NOW.getFullYear()} konyhaiatvalto.hu</p>
   </div>
 </footer>
 ${scripts}
@@ -722,6 +731,11 @@ function buildHome() {
 ${presets.map(([label, e, a, f, t]) => `  <li><a data-preset href="${url('/')}?e=${e}&amp;a=${a}&amp;f=${f}&amp;t=${t}">${esc(label)}</a></li>`).join('\n')}
 </ul>
 
+<div class="catgrid">
+  <a class="card" href="${url('/suto-homerseklet-atvalto/')}"><h3>Sütőhőfok-átváltó →</h3><p>°C, légkeveréses °C, °F és gázfokozat egy helyen.</p></a>
+  <a class="card" href="${url('/darab/')}"><h3>Darabos hozzávalók →</h3><p>Hány gramm egy tojás, egy burgonya, egy gerezd fokhagyma?</p></a>
+</div>
+
 <h2>Mennyi egy bögre, pohár, evőkanál?</h2>
 ${tbl(['Mérték', 'ml', 'dl'], measureRows)}
 <p class="small muted">A bögre és a pohár nem szabványos; a magyar konyhákban 2,5 dl-es bögrével és 2 dl-es pohárral szokás számolni. <a href="${url('/mertekegysegek/')}">Részletek és további átváltások →</a></p>
@@ -778,11 +792,23 @@ function build404() {
 
 function buildStatic() {
   fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
-  for (const f of ['style.css', 'app.js', 'core.js']) fs.copyFileSync(path.join(SRC, f), path.join(OUT, 'assets', f));
+  for (const f of ['style.css', 'app.js', 'core.js', 'oven.js']) fs.copyFileSync(path.join(SRC, f), path.join(OUT, 'assets', f));
   const dens = Object.fromEntries(INGS.map((i) => [i.slug, i.density]));
   writeFile('assets/data.js', `window.KA_DENSITY=${JSON.stringify(dens)};\n`);
 
-  writeFile('favicon.svg', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#c8402a"/><path d="M9 9h14l-2 15a2 2 0 0 1-2 1.8h-6a2 2 0 0 1-2-1.8z" fill="#fff"/><path d="M10.2 16h11.6" stroke="#c8402a" stroke-width="1.6"/></svg>\n');
+  const brandDir = path.join(SRC, 'brand');
+  fs.mkdirSync(path.join(OUT, 'brand'), { recursive: true });
+  for (const f of fs.readdirSync(brandDir)) fs.copyFileSync(path.join(brandDir, f), path.join(OUT, 'brand', f));
+  fs.copyFileSync(path.join(brandDir, 'favicon.svg'), path.join(OUT, 'favicon.svg'));
+  fs.copyFileSync(path.join(brandDir, 'favicon.ico'), path.join(OUT, 'favicon.ico'));
+  writeFile('manifest.webmanifest', JSON.stringify({
+    name: BRAND, short_name: BRAND, lang: 'hu', start_url: url('/'), scope: url('/'), display: 'standalone',
+    background_color: '#F8F0E3', theme_color: '#F8F0E3',
+    icons: [
+      { src: url('/brand/app-icon-192.png'), sizes: '192x192', type: 'image/png' },
+      { src: url('/brand/app-icon-512.png'), sizes: '512x512', type: 'image/png' },
+    ],
+  }, null, 2) + '\n');
 
   writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${abs('/sitemap.xml')}\n`);
 
@@ -797,6 +823,307 @@ function buildStatic() {
   if (!BASE && !host.endsWith('github.io')) writeFile('CNAME', host + '\n');
 }
 
+
+/* ------------------------------------------------------ darabos hozzávalók */
+
+const PIECES = data.pieces;
+const pcLabel = (pc) => (pc.unit ? pc.unit + ' ' : '') + pc.item;
+const pcPhrase = (pc, q) => `${q === 1 ? 'egy' : q} ${pcLabel(pc)}`;
+const pcCount = (pc) => pc.unit || 'darab';
+const pcHub = (pc) => `/darab/${pc.slug}/`;
+const niceCount = (n) => (n >= 10 ? Math.round(n) : Math.round(n * 10) / 10);
+
+function pcFwd(pc, q) {
+  const g = niceMass(q * pc.grams);
+  const tail = g >= 100 ? `, azaz ${fmt(g / 10)} dkg` : '';
+  return { g, sentence: `${cap(pcPhrase(pc, q))} kb. ${fmt(g)} g${tail}.`, short: `Kb. ${fmt(g)} g`, main: `≈ ${fmt(g)} g`, calc: `${q} × ${fmt(pc.grams)} g = ${fmt(q * pc.grams)} g` };
+}
+function pcRev(pc, q, u) {
+  const gIn = convert(q, u, 'g');
+  const n = gIn / pc.grams;
+  const c = niceCount(n);
+  const inp = u === 'g' ? `${fmt(q)} g` : `${fmt(q)} ${T(u)} (${fmt(gIn)} g)`;
+  return { sentence: `${cap(inp)} ${pc.item} kb. ${fmt(c)} ${pcCount(pc)}.`, short: `Kb. ${fmt(c)} ${pcCount(pc)}`, main: `≈ ${fmt(c)} ${pcCount(pc)}`, calc: `${fmt(gIn)} g ÷ ${fmt(pc.grams)} g = ${fmt(n)} ${pcCount(pc)}` };
+}
+
+const pQuestions = [];
+for (const pc of PIECES) {
+  for (const q of pc.qs) {
+    pQuestions.push({ pc, kind: 'f', q, key: `f-${q}`, slug: `hany-gramm-${q === 1 ? 'egy' : q}-${pc.slug}`, question: `Hány gramm ${pcPhrase(pc, q)}?` });
+  }
+  for (const [q, u] of pc.rev || []) {
+    pQuestions.push({ pc, kind: 'r', q, u, key: `r-${q}-${u}`, slug: `hany-db-${pc.slug}-${q}-${UNITS[u].slug}`, question: `Hány ${pcCount(pc)} ${pc.item} ${fmt(q)} ${T(u)}?` });
+  }
+}
+for (const x of pQuestions) x.path = `/atvaltas/${x.slug}/`;
+{
+  const all = new Set(questions.map((q) => q.slug));
+  for (const x of pQuestions) {
+    if (all.has(x.slug)) throw new Error('Duplikált slug: ' + x.slug);
+    all.add(x.slug);
+  }
+}
+
+function pcTables(pc, hl) {
+  const fwd = tbl(
+    ['Mennyiség', 'Tömeg (g)', 'Tömeg (dkg)'],
+    pc.qs.map((q) => {
+      const g = niceMass(q * pc.grams);
+      return { hl: hl && hl.kind === 'f' && hl.q === q, cells: [`${q} ${pcLabel(pc)}`, fmt(g) + ' g', fmt(g / 10) + ' dkg'] };
+    })
+  );
+  const rev = pc.rev
+    ? tbl(
+        ['Tömeg', `Mennyiség (${pcCount(pc)})`],
+        pc.rev.map(([q, u]) => ({
+          hl: hl && hl.kind === 'r' && hl.q === q && hl.u === u,
+          cells: [u === 'dkg' ? `${q} dkg (${q * 10} g)` : u === 'kg' ? `${q} kg` : `${q} g`, fmt(niceCount(convert(q, u, 'g') / pc.grams))],
+        }))
+      )
+    : '';
+  return { fwd, rev };
+}
+
+function pcFaqs(pc, mainQ, mainA, exceptQ) {
+  const faqs = [];
+  if (mainQ) faqs.push({ q: mainQ, a: mainA });
+  for (const q of [1, 2, 3]) {
+    if (!pc.qs.includes(q) || q === exceptQ || faqs.length >= 3) continue;
+    faqs.push({ q: `Hány gramm ${pcPhrase(pc, q)}?`, a: pcFwd(pc, q).sentence });
+  }
+  faqs.push({
+    q: 'Mennyire pontos ez az érték?',
+    a: 'Tájékoztató érték, átlagos méretű darabbal számolunk. ' + (pc.note || 'A darabos hozzávalók tömege a mérettől és a fajtától függően akár 20–30%-kal is eltérhet, pontos eredményhez érdemes lemérni.'),
+  });
+  return faqs;
+}
+
+function buildPcQuestion(x) {
+  const { pc } = x;
+  const a = x.kind === 'f' ? pcFwd(pc, x.q) : pcRev(pc, x.q, x.u);
+  const title = `${x.question} ${a.short} | ${BRAND}`;
+  const desc = trimDesc([a.sentence, `1 ${pcLabel(pc)} ≈ ${fmt(niceMass(pc.grams))} g.`, 'Átváltási táblázat és gyakori kérdések.']);
+  const faqs = pcFaqs(pc, x.question, a.sentence, x.kind === 'f' ? x.q : null);
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Darabos hozzávalók', p: '/darab/' }, { name: cap(pcLabel(pc)), p: pcHub(pc) }, { name: x.question, p: x.path }]);
+  const t = pcTables(pc, x);
+  const same = pQuestions.filter((y) => y.pc === pc && y !== x);
+  const sameKey = pQuestions.filter((y) => y.key === x.key && y.pc !== pc).sort((p1, p2) => (p1.pc.group === pc.group ? 0 : 1) - (p2.pc.group === pc.group ? 0 : 1)).slice(0, 8);
+  const body = `
+${bc.html}
+<h1>${esc(x.question)}</h1>
+<section class="card answer" aria-label="Válasz">
+  <p class="big">${esc(a.main)}</p>
+  <p>${esc(a.sentence)}</p>
+  <p class="calc">Számítás: ${esc(a.calc)}.</p>
+  <p><a class="btn" href="${url(pcHub(pc))}">Minden átváltás: ${esc(pcLabel(pc))} →</a></p>
+</section>
+
+<h2>${esc(cap(pcLabel(pc)))}: darab → gramm</h2>
+${t.fwd}
+${t.rev ? `<h2>${esc(cap(pcLabel(pc)))}: gramm → ${esc(pcCount(pc))}</h2>\n${t.rev}` : ''}
+
+<h2>Mit érdemes tudni?</h2>
+<p>${esc(pc.note || 'A darabos hozzávalók tömege a mérettől és a fajtától függően eltérhet, ezért a táblázat átlagos, közepes méretű darabbal számol.')} Az oldal ${esc(pcLabel(pc))} esetén ${fmt(pc.grams)} g-os átlagos darabbal számol.</p>
+
+${faqHtml(faqs)}
+
+<h2>További ${esc(pc.item)} átváltások</h2>
+<ul class="links">
+  <li><a href="${url(pcHub(pc))}"><strong>${esc(cap(pcLabel(pc)))} – összes átváltás</strong></a></li>
+  ${same.map((y) => `<li><a href="${url(y.path)}">${esc(y.question)}</a></li>`).join('\n  ')}
+</ul>
+${sameKey.length ? `<h2>Ugyanez más hozzávalóval</h2>\n<ul class="links">\n  ${sameKey.map((y) => `<li><a href="${url(y.path)}">${esc(y.question)}</a></li>`).join('\n  ')}\n</ul>` : ''}
+`;
+  writePage(x.path, layout({ title, desc, p: x.path, body, ld: [bc.ld, faqLd(faqs)] }), { title, desc });
+}
+
+function buildPcHub(pc) {
+  const p = pcHub(pc);
+  const label = pcLabel(pc);
+  const title = `${cap(label)} hány gramm? Darab–gramm átváltó | ${BRAND}`;
+  const desc = trimDesc([
+    `${cap(label)}: 1 db kb. ${fmt(niceMass(pc.grams))} g` + (pc.qs.includes(3) ? `, 3 db kb. ${fmt(niceMass(3 * pc.grams))} g.` : '.'),
+    'Táblázat darabról grammra és vissza, gyakori kérdésekkel.',
+  ]);
+  const faqs = pcFaqs(pc, null, null, null);
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Darabos hozzávalók', p: '/darab/' }, { name: cap(label), p }]);
+  const t = pcTables(pc, null);
+  const list = pQuestions.filter((y) => y.pc === pc);
+  const siblings = PIECES.filter((y) => y.group === pc.group && y !== pc);
+  const body = `
+${bc.html}
+<h1>${esc(cap(label))} – hány gramm?</h1>
+<p class="lead">Egy ${esc(label)} átlagosan kb. <strong>${fmt(niceMass(pc.grams))} g</strong>. Az alábbi táblázatok darabról grammra és grammról darabra váltanak.</p>
+<section class="card answer"><p class="big">1 ${esc(label)} ≈ ${fmt(niceMass(pc.grams))} g</p><p class="muted">${esc(pc.note || 'Átlagos méretű darabbal számolunk.')}</p></section>
+<h2>Darab → gramm</h2>
+${t.fwd}
+${t.rev ? `<h2>Gramm → ${esc(pcCount(pc))}</h2>\n${t.rev}` : ''}
+${faqHtml(faqs)}
+<h2>${esc(cap(label))} – gyakori kérdések külön oldalon</h2>
+<ul class="links">
+  ${list.map((y) => `<li><a href="${url(y.path)}">${esc(y.question)}</a></li>`).join('\n  ')}
+</ul>
+${siblings.length ? `<h2>${esc(pc.group)}</h2>\n<ul class="links">\n  ${siblings.map((y) => `<li><a href="${url(pcHub(y))}">${esc(cap(pcLabel(y)))} hány gramm?</a></li>`).join('\n  ')}\n</ul>` : ''}
+`;
+  writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)] }), { title, desc });
+}
+
+function buildPcIndex() {
+  const p = '/darab/';
+  const title = `Darabos hozzávalók: hány gramm egy tojás, burgonya, hagyma? | ${BRAND}`;
+  const desc = `Hány gramm egy tojás, egy közepes burgonya, egy gerezd fokhagyma, egy csomag sütőpor? ${PIECES.length} darabos hozzávaló átváltása grammra és vissza.`;
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Darabos hozzávalók', p }]);
+  const groups = [...new Set(PIECES.map((x) => x.group))];
+  const rows = groups
+    .map((g) => `<tr class="cat"><th colspan="3" scope="colgroup">${esc(g)}</th></tr>` + PIECES.filter((x) => x.group === g).map((x) => `<tr><th scope="row"><a href="${url(pcHub(x))}">${esc(cap(pcLabel(x)))}</a></th><td class="num">${fmt(niceMass(x.grams))}</td><td class="num">${fmt(niceMass(x.grams) / 10)}</td></tr>`).join(''))
+    .join('');
+  const faqs = [
+    { q: 'Hány gramm egy közepes tojás?', a: pcFwd(PIECES[0], 1).sentence },
+    { q: 'Miért térnek el a darabos hozzávalók tömegei?', a: 'A darabos hozzávalók tömege a mérettől és a fajtától függ, ezért a táblázat átlagos, közepes méretű darabbal számol. Pontos eredményhez érdemes lemérni.' },
+  ];
+  const body = `
+${bc.html}
+<h1>Darabos hozzávalók átváltása</h1>
+<p class="lead">Receptekben gyakran darabban szerepel a hozzávaló (tojás, hagyma, fokhagyma, csomag sütőpor). Íme, mennyi ez grammban.</p>
+<div class="tw"><table><thead><tr><th scope="col">1 darab</th><th scope="col" class="num">gramm</th><th scope="col" class="num">dkg</th></tr></thead><tbody>${rows}</tbody></table></div>
+${faqHtml(faqs)}
+<h2>Minden darabos oldal</h2>
+<ul class="links">
+  ${PIECES.map((x) => `<li><a href="${url(pcHub(x))}">${esc(cap(pcLabel(x)))} hány gramm?</a></li>`).join('\n  ')}
+</ul>
+`;
+  writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)] }), { title, desc });
+}
+
+/* ---------------------------------------------------------- sütőhőfok */
+
+const OVEN_C = [100, 110, 120, 130, 140, 150, 160, 170, 175, 180, 190, 200, 210, 220, 225, 230, 240, 250, 260];
+const OVEN_F = [250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500];
+const OVEN_PATH = '/suto-homerseklet-atvalto/';
+const rnd = (x, s) => Math.round(x / s) * s;
+const gasTxt = (c) => KA.gasLabel(KA.gasFromC(c));
+const toF = (c) => Math.round(KA.cToF(c));
+
+const OVEN_FAQ = [
+  { q: 'Hány fokot kell levonni légkeveréses sütőnél?', a: 'Általában 20 °C-ot (a gyártók 10–25 °C-ot ajánlanak). Például a 200 °C alsó-felső sütés légkeveréssel kb. 180 °C.' },
+  { q: 'Melyik a leggyakoribb sütési hőfok?', a: 'A 180 °C (356 °F, kb. 4-es gázfokozat) a leggyakoribb: sütemények, piskóta, zöldségek és sok hús is ezen a hőfokon sül.' },
+  { q: 'Pontos a gázfokozat és a Celsius közötti átváltás?', a: 'Csak közelítő: a gázsütők skálája gyártónként eltérhet. Az oldal a gyakori UK Gas Mark táblázatot használja (pl. 4 = 180 °C). Pontos sütéshez használj sütőhőmérőt.' },
+];
+
+const ovenPages = [];
+for (const c of OVEN_C) {
+  ovenPages.push({ kind: 'cf', v: c, slug: `${c}-celsius-fahrenheit`, question: `${c} °C hány °F?` });
+  ovenPages.push({ kind: 'cfan', v: c, slug: `${c}-celsius-legkeveresesen`, question: `${c} °C légkeveréssel hány fok?` });
+  ovenPages.push({ kind: 'cgas', v: c, slug: `${c}-celsius-gazfokozat`, question: `${c} °C hány gázfokozat?` });
+}
+for (const f of OVEN_F) ovenPages.push({ kind: 'fc', v: f, slug: `${f}-fahrenheit-celsius`, question: `${f} °F hány °C?` });
+for (const x of ovenPages) x.path = `/atvaltas/${x.slug}/`;
+
+function ovenAnswer(x) {
+  const v = x.v;
+  if (x.kind === 'cf') {
+    const F = toF(v), Fr = rnd(F, 25);
+    return { main: `${v} °C = ${F} °F`, short: `${v} °C = ${F} °F`, sentence: `${v} °C = ${F} °F (pontosan ${fmt(KA.cToF(v))} °F).` + (Fr !== F ? ` Amerikai receptekben ezt általában ${Fr} °F-ra kerekítik.` : '') };
+  }
+  if (x.kind === 'cfan') {
+    return { main: `≈ ${v - 20} °C`, short: `Kb. ${v - 20} °C`, sentence: `Ha a recept ${v} °C-ot ír alsó-felső (hagyományos) sütéshez, légkeveréses sütőben kb. ${v - 20} °C-ot állíts be. Fordítva: ${v} °C légkeveréses hőfok alsó-felsőn ${v + 20} °C-nak felel meg.` };
+  }
+  if (x.kind === 'cgas') {
+    const g = gasTxt(v);
+    return { main: `kb. ${g}-es fokozat`, short: `Kb. ${g}-es fokozat`, sentence: `${v} °C kb. ${g}-es gázfokozatnak felel meg (UK Gas Mark skála szerint). A gázsütők skálája gyártónként eltérhet.` };
+  }
+  const c = KA.fToC(v), c5 = rnd(c, 5);
+  return { main: `${v} °F ≈ ${c5} °C`, short: `${v} °F ≈ ${c5} °C`, sentence: `${v} °F = ${fmt(Math.round(c * 10) / 10)} °C, a sütőn beállítva kb. ${c5} °C (légkeveréssel kb. ${c5 - 20} °C, ${gasTxt(c5) === '1/4' ? '1/4' : gasTxt(c5)}-es gázfokozat).` };
+}
+
+function ovenTableC(hl) {
+  return tbl(['Alsó-felső (°C)', 'Légkeveréses (°C)', 'Fahrenheit (°F)', 'Gázfokozat (kb.)'],
+    OVEN_C.map((c) => ({ hl: hl === c, cells: [`${c} °C`, `${c - 20} °C`, `${toF(c)} °F`, gasTxt(c)] })));
+}
+function ovenTableF(hl) {
+  return tbl(['Fahrenheit (°F)', 'Pontos (°C)', 'Beállítható (°C, kb.)', 'Légkeveréses (°C)', 'Gázfokozat (kb.)'],
+    OVEN_F.map((f) => {
+      const c = KA.fToC(f), c5 = rnd(c, 5);
+      return { hl: hl === f, cells: [`${f} °F`, `${fmt(Math.round(c))} °C`, `${c5} °C`, `${c5 - 20} °C`, gasTxt(c5)] };
+    }));
+}
+
+function buildOvenPage(x) {
+  const a = ovenAnswer(x);
+  const title = `${x.question} ${a.short} | ${BRAND}`;
+  const desc = trimDesc([a.sentence, 'Sütőhőfok-táblázat: Celsius, légkeveréses, Fahrenheit és gázfokozat.']);
+  const faqs = [{ q: x.question, a: a.sentence }, ...OVEN_FAQ];
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Sütőhőfok', p: OVEN_PATH }, { name: x.question, p: x.path }]);
+  const isF = x.kind === 'fc';
+  const near = ovenPages.filter((y) => y !== x && y.kind === x.kind && Math.abs(y.v - x.v) <= (isF ? 75 : 30)).slice(0, 8);
+  const sameTemp = isF ? [] : ovenPages.filter((y) => y !== x && y.v === x.v && y.kind !== 'fc');
+  const body = `
+${bc.html}
+<h1>${esc(x.question)}</h1>
+<section class="card answer" aria-label="Válasz">
+  <p class="big">${esc(a.main)}</p>
+  <p>${esc(a.sentence)}</p>
+  <p><a class="btn" href="${url(OVEN_PATH)}">Saját hőfok átváltása →</a></p>
+</section>
+
+<h2>Sütőhőfok-táblázat</h2>
+${isF ? ovenTableF(x.v) : ovenTableC(x.v)}
+
+<h2>Mit érdemes tudni?</h2>
+<p>Légkeveréses (hőlégbefúvásos) sütőben a hagyományos, alsó-felső sütés hőfokához képest általában 20 °C-kal alacsonyabbra kell állítani, mert a mozgó levegő gyorsabban adja át a hőt. A gázfokozatok a gyakori UK Gas Mark skála szerintiek, a magyar gázsütők skálája típusonként eltérhet. Ha teheted, ellenőrizd a tényleges hőfokot sütőhőmérővel.</p>
+
+${faqHtml(faqs)}
+
+<h2>Kapcsolódó átváltások</h2>
+<ul class="links">
+  ${[...sameTemp, ...near].map((y) => `<li><a href="${url(y.path)}">${esc(y.question)}</a></li>`).join('\n  ')}
+  <li><a href="${url(OVEN_PATH)}">Sütőhőfok-átváltó kalkulátor</a></li>
+</ul>
+`;
+  writePage(x.path, layout({ title, desc, p: x.path, body, ld: [bc.ld, faqLd(faqs)] }), { title, desc });
+}
+
+function buildOvenHub() {
+  const p = OVEN_PATH;
+  const title = `Sütőhőfok átváltó: Celsius, Fahrenheit, légkeveréses, gázfokozat | ${BRAND}`;
+  const desc = '180 °C = 356 °F = 160 °C légkeveréssel = kb. 4-es gázfokozat. Sütőhőfok-átváltó kalkulátor és táblázat egy helyen.';
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Sütőhőfok', p }]);
+  const faqs = OVEN_FAQ;
+  const grp = (kind, label) => `<h3>${label}</h3><ul class="links">${ovenPages.filter((y) => y.kind === kind).map((y) => `<li><a href="${url(y.path)}">${esc(y.question)}</a></li>`).join('')}</ul>`;
+  const c = 180;
+  const body = `
+${bc.html}
+<h1>Sütőhőfok átváltó</h1>
+<p class="lead">Váltsd át a recept hőfokát: Celsius (alsó-felső), légkeveréses, Fahrenheit és gázfokozat között.</p>
+<section class="card conv" aria-label="Sütőhőfok-átváltó">
+  <form onsubmit="return false" autocomplete="off"><div class="row2">
+    <div><label for="o-val">Hőmérséklet</label><input id="o-val" type="text" inputmode="decimal" value="180"></div>
+    <div><label for="o-from">Mértékegység</label><select id="o-from"><option value="c">°C – alsó-felső (hagyományos)</option><option value="fan">°C – légkeveréses</option><option value="f">°F – Fahrenheit</option><option value="gas">Gázfokozat (pl. 4 vagy 1/2)</option></select></div>
+  </div></form>
+  <div class="result" aria-live="polite"><p class="big" id="o-main">${c} °C alsó-felső = ${c - 20} °C légkeveréssel = ${toF(c)} °F</p></div>
+  <div class="tw"><table><tbody id="o-body">
+    <tr><th scope="row">°C – alsó-felső (hagyományos)</th><td class="num">${c} °C</td></tr>
+    <tr><th scope="row">°C – légkeveréses</th><td class="num">${c - 20} °C</td></tr>
+    <tr><th scope="row">°F – Fahrenheit</th><td class="num">${toF(c)} °F</td></tr>
+    <tr><th scope="row">Gázfokozat (kb.)</th><td class="num">${gasTxt(c)}</td></tr>
+  </tbody></table></div>
+</section>
+<h2>Celsius → Fahrenheit, légkeveréses, gázfokozat</h2>
+${ovenTableC(null)}
+<h2>Fahrenheit → Celsius</h2>
+${ovenTableF(null)}
+<p class="small muted">A légkeveréses érték az alsó-felső hőfok −20 °C. A gázfokozatok az UK Gas Mark skála szerintiek, a magyar gázsütők skálája eltérhet. Az értékek tájékoztatók.</p>
+${faqHtml(faqs)}
+<h2>Minden sütőhőfok-átváltás</h2>
+${grp('cf', 'Celsius → Fahrenheit')}
+${grp('cfan', 'Légkeveréses hőfok')}
+${grp('cgas', 'Gázfokozat')}
+${grp('fc', 'Fahrenheit → Celsius')}
+`;
+  const scripts = `<script src="${url('/assets/core.js')}?v=${JS_V}"></script>\n<script src="${url('/assets/oven.js')}?v=${JS_V}"></script>`;
+  writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)], scripts }), { title, desc });
+}
+
 /* ---------------------------------------------------------------------- main */
 
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -807,9 +1134,15 @@ buildUnitsIndex();
 unitPairs.forEach(buildUnitPage);
 INGS.forEach(buildHub);
 questions.forEach(buildQuestionPage);
+pQuestions.forEach(buildPcQuestion);
+PIECES.forEach(buildPcHub);
+buildPcIndex();
+buildOvenHub();
+ovenPages.forEach(buildOvenPage);
 build404();
 buildStatic();
 
 console.log(`Kész: ${sitemap.length} oldal a ${path.relative(process.cwd(), OUT) || '.'} mappában`);
+console.log(`  darabos: ${PIECES.length} hub, ${pQuestions.length} kérdés | sütőhőfok: ${ovenPages.length} oldal`);
 console.log(`  hozzávalók: ${INGS.length} | kérdés-oldalak: ${questions.length} | mértékegység-oldalak: ${unitPairs.length}`);
 console.log(`  SITE_URL=${SITE_URL}${BASE ? ' BASE_PATH=' + BASE : ''}`);

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 220" role="img" aria-labelledby="title desc">
+  <title id="title">Konyhai Átváltó logó</title>
+  <desc id="desc">Terrakotta mérőpohár zsályazöld környíllal és Konyhai Átváltó felirattal.</desc>
+  <defs>
+    <linearGradient id="cup" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#E86F51"/><stop offset="1" stop-color="#C94F3E"/></linearGradient>
+  </defs>
+  <g transform="translate(20 20)">
+    <circle cx="90" cy="90" r="78" fill="#F8F0E3"/>
+    <path d="M31 59a62 62 0 1 1 15 74" fill="none" stroke="#557A62" stroke-width="12" stroke-linecap="round"/>
+    <path d="m36 134-4-27 26 8" fill="none" stroke="#557A62" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M63 62h61l-8 88H71z" fill="url(#cup)"/>
+    <path d="M59 62h69" stroke="#8E362E" stroke-width="8" stroke-linecap="round"/>
+    <path d="M69 86h37M67 109h39M65 132h42" stroke="#FFF8ED" stroke-width="7" stroke-linecap="round" opacity=".92"/>
+    <path d="M124 78c23-3 28 29 5 35" fill="none" stroke="#C94F3E" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <text x="215" y="105" fill="#24332C" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" letter-spacing="-1.5">Konyhai</text>
+  <text x="215" y="160" fill="#557A62" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" letter-spacing="-1.5">Átváltó</text>
+</svg>
