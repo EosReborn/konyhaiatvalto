@@ -54,7 +54,8 @@ p { margin: .6em 0; }
 .brand { font-weight: 800; font-size: 1.15rem; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
 .brand span { color: var(--accent); }
 .site-header nav { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-left: auto; }
-.site-header nav a { color: var(--ink); text-decoration: none; padding: 6px 0; font-size: .95rem; }
+.site-header nav a { color: var(--ink); text-decoration: none; padding: 12px 2px; font-size: .95rem; display: inline-block; min-height: 44px; }
+.brand { min-height: 44px; }
 .site-header nav a:hover { color: var(--accent); }
 
 /* breadcrumb */
@@ -129,7 +130,7 @@ summary:hover { color: var(--accent); }
 
 /* footer */
 .site-footer { margin-top: 48px; border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: .9rem; }
-.site-footer a { color: var(--muted); }
+.site-footer a { color: var(--muted); display: inline-block; padding: 10px 4px; }
 .site-footer p { margin: .4em 0; }
 
 [hidden] { display: none !important; }

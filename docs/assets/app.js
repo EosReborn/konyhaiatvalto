@@ -21,6 +21,7 @@
     return el.ing.value && o ? o.getAttribute('data-name') : '';
   }
 
+  var userChanged = false;
   function render() {
     var amount = parse(el.amount.value);
     var from = el.from.value, to = el.to.value;
@@ -60,6 +61,7 @@
     });
     el.all.innerHTML = rows;
 
+    if (!userChanged) return;
     try {
       var p = new URLSearchParams();
       if (slug) p.set('e', slug);
@@ -78,18 +80,19 @@
     if (t && KA.UNITS[t]) el.to.value = t;
   }
 
+  function onUser() { userChanged = true; render(); }
   ['input', 'change'].forEach(function (ev) {
-    el.amount.addEventListener(ev, render);
-    el.from.addEventListener(ev, render);
-    el.to.addEventListener(ev, render);
-    el.ing.addEventListener(ev, render);
+    el.amount.addEventListener(ev, onUser);
+    el.from.addEventListener(ev, onUser);
+    el.to.addEventListener(ev, onUser);
+    el.ing.addEventListener(ev, onUser);
   });
 
   el.swap.addEventListener('click', function () {
     var f = el.from.value;
     el.from.value = el.to.value;
     el.to.value = f;
-    render();
+    onUser();
   });
 
   // gyorsgombok: JS nélkül sima linkek (?e=..), JS-sel azonnal átváltanak
@@ -97,7 +100,7 @@
     a.addEventListener('click', function (ev) {
       ev.preventDefault();
       apply(new URLSearchParams(a.getAttribute('href').split('?')[1] || ''));
-      render();
+      onUser();
       el.amount.focus({ preventScroll: true });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
