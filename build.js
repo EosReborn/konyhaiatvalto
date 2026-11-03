@@ -705,8 +705,14 @@ function buildHome() {
   ];
 
   const body = `
-<h1>Konyhai átváltó: bögre, pohár, evőkanál → gramm, dkg, dl</h1>
-<p class="lead">Számold át gyorsan a receptek mértékegységeit: bögre, pohár, evőkanál, teáskanál, ml, dl, liter, gramm, dkg és kg között – ${INGS.length} hozzávaló sűrűségével.</p>
+<h1 class="hero">Hány gramm az <em>1 bögre liszt</em>?<br><span>Konyhai átváltó pillanatok alatt.</span></h1>
+<p class="lead">Bögre, pohár, evőkanál, teáskanál, dl, gramm és dkg között – ${INGS.length} hozzávaló sűrűségével.</p>
+<ul class="facts" aria-label="Alapmértékek">
+  <li><b>1 bögre</b> 2,5 dl</li>
+  <li><b>1 pohár</b> 2 dl</li>
+  <li><b>1 evőkanál</b> 15 ml</li>
+  <li><b>1 teáskanál</b> 5 ml</li>
+</ul>
 
 <section class="card conv" id="atvalto" aria-label="Átváltó kalkulátor">
   <form onsubmit="return false" autocomplete="off">
