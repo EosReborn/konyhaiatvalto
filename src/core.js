@@ -13,6 +13,14 @@
     pohar:     { type: 'v', f: 200,  text: 'pohár',     ask: 'pohár',     label: 'pohár (2 dl)',       slug: 'pohar',    ext: ' (2 dl)' },
     evokanal:  { type: 'v', f: 15,   text: 'evőkanál',  ask: 'evőkanál',  label: 'evőkanál (15 ml)',   slug: 'evokanal', ext: ' (15 ml)' },
     teaskanal: { type: 'v', f: 5,    text: 'teáskanál', ask: 'teáskanál', label: 'teáskanál (5 ml)',   slug: 'teaskanal', ext: ' (5 ml)' },
+    uscup:     { type: 'v', f: 236.588, text: 'cup',    ask: 'cup',       label: 'cup – amerikai (236,6 ml)',       slug: 'cup',   us: true },
+    ustbsp:    { type: 'v', f: 14.7868, text: 'tbsp',   ask: 'tbsp',      label: 'tbsp – amerikai evőkanál (14,8 ml)', slug: 'tbsp', us: true },
+    ustsp:     { type: 'v', f: 4.92892, text: 'tsp',    ask: 'tsp',       label: 'tsp – amerikai teáskanál (4,9 ml)',  slug: 'tsp',  us: true },
+    floz:      { type: 'v', f: 29.5735, text: 'fl oz',  ask: 'fl oz',     label: 'fl oz – folyadékuncia (29,6 ml)', slug: 'fl-oz', us: true },
+    uspint:    { type: 'v', f: 473.176, text: 'pint',   ask: 'pint',      label: 'pint – amerikai (473 ml)',        slug: 'pint',  us: true },
+    usquart:   { type: 'v', f: 946.353, text: 'quart',  ask: 'quart',     label: 'quart – amerikai (946 ml)',       slug: 'quart', us: true },
+    oz:        { type: 'm', f: 28.3495, text: 'oz',     ask: 'oz',        label: 'oz – uncia (28,35 g)',            slug: 'oz',    us: true },
+    lb:        { type: 'm', f: 453.592, text: 'lb',     ask: 'lb',        label: 'lb – font (453,6 g)',             slug: 'lb',    us: true },
     g:         { type: 'm', f: 1,    text: 'g',         ask: 'gramm',     label: 'g – gramm',          slug: 'gramm' },
     dkg:       { type: 'm', f: 10,   text: 'dkg',       ask: 'dkg',       label: 'dkg – dekagramm',    slug: 'dkg' },
     kg:        { type: 'm', f: 1000, text: 'kg',        ask: 'kg',        label: 'kg – kilogramm',     slug: 'kg' }
@@ -20,6 +28,9 @@
 
   var VOLUME_ORDER = ['ml', 'dl', 'l', 'bogre', 'pohar', 'evokanal', 'teaskanal'];
   var MASS_ORDER = ['g', 'dkg', 'kg'];
+  var VOLUME_US = ['uscup', 'ustbsp', 'ustsp', 'floz', 'uspint', 'usquart'];
+  var MASS_US = ['oz', 'lb'];
+  var US_ORDER = VOLUME_US.concat(MASS_US);
 
   /** Átváltás; a density (g/ml) csak térfogat <-> tömeg között számít. */
   function convert(amount, from, to, density) {
@@ -48,7 +59,7 @@
     return Math.round(g / step) * step;
   }
 
-  var VOL_STEP = { ml: 5, dl: 0.1, l: 0.01, bogre: 0.1, pohar: 0.1, evokanal: 0.25, teaskanal: 0.25 };
+  var VOL_STEP = { ml: 5, dl: 0.1, l: 0.01, bogre: 0.1, pohar: 0.1, evokanal: 0.25, teaskanal: 0.25, uscup: 0.1, ustbsp: 0.25, ustsp: 0.25, floz: 0.5, uspint: 0.1, usquart: 0.1 };
 
   /** Konyhai kerekítés térfogat-mértékegységekre. */
   function niceVol(x, unit) {
@@ -78,6 +89,9 @@
     UNITS: UNITS,
     VOLUME_ORDER: VOLUME_ORDER,
     MASS_ORDER: MASS_ORDER,
+    VOLUME_US: VOLUME_US,
+    MASS_US: MASS_US,
+    US_ORDER: US_ORDER,
     convert: convert,
     fmt: fmt,
     niceMass: niceMass,

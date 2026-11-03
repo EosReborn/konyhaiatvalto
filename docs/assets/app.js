@@ -50,7 +50,7 @@
     el.sub.textContent = sub;
 
     var rows = '';
-    var groups = [['Térfogat', KA.VOLUME_ORDER], ['Tömeg', KA.MASS_ORDER]];
+    var groups = [['Térfogat', KA.VOLUME_ORDER], ['Tömeg', KA.MASS_ORDER], ['Amerikai mértékek', KA.US_ORDER]];
     groups.forEach(function (g) {
       rows += '<tr><th colspan="2">' + g[0] + '</th></tr>';
       g[1].forEach(function (u) {

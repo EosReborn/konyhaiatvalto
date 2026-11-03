@@ -23,7 +23,7 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/brand/app-icon-180.png">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/assets/style.css?v=3509e1dc">
+<link rel="stylesheet" href="/assets/style.css?v=87b23ea9">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Főoldal","item":"https://konyhaiatvalto.hu/"},{"@type":"ListItem","position":2,"name":"Darált mák","item":"https://konyhaiatvalto.hu/hozzavalo/mak/"},{"@type":"ListItem","position":3,"name":"Hány gramm 1 liter darált mák?","item":"https://konyhaiatvalto.hu/atvaltas/hany-gramm-1-liter-mak/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hány gramm 1 liter darált mák?","acceptedAnswer":{"@type":"Answer","text":"1 liter darált mák kb. 500 g, vagyis 50 dkg."}},{"@type":"Question","name":"Hány gramm egy bögre darált mák?","acceptedAnswer":{"@type":"Answer","text":"Egy bögre (2,5 dl) darált mák kb. 125 g, vagyis 12,5 dkg."}},{"@type":"Question","name":"Hány gramm 1 dl darált mák?","acceptedAnswer":{"@type":"Answer","text":"1 dl darált mák kb. 50 g, vagyis 5 dkg."}},{"@type":"Question","name":"Mennyi a darált mák sűrűsége?","acceptedAnswer":{"@type":"Answer","text":"A darált mák sűrűsége átlagosan kb. 0,5 g/ml, vagyis 1 dl darált mák kb. 50 g. Az oldal ezzel az értékkel számol."}},{"@type":"Question","name":"Mennyire pontos ez az átváltás?","acceptedAnswer":{"@type":"Answer","text":"Tájékoztató érték. A magvak és a darálék tömege az őrlés finomságától függ: a durvára vágott, levegős darálék könnyebb, a finomra őrölt, tömörödő nehezebb. A táblázat átlagos értékekkel számol."}}]}</script>
 </head>
@@ -32,10 +32,10 @@
   <div class="wrap">
     <a class="brand" href="/" aria-label="Konyhai átváltó – főoldal"><img src="/brand/favicon.svg" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
     <nav aria-label="Fő menü">
-      <a href="/">Átváltó</a>
       <a href="/#hozzavalok">Hozzávalók</a>
       <a href="/darab/">Darabos</a>
       <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a>
+      <a href="/adagszam-atszamolo/">Adagszám</a>
       <a href="/mertekegysegek/">Mértékegységek</a>
     </nav>
   </div>
@@ -52,13 +52,14 @@
 </section>
 
 <h2>Darált mák átváltási táblázat: térfogat → tömeg</h2>
-<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">2,5 g</td><td class="num">0,25 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">7,5 g</td><td class="num">0,75 dkg</td></tr><tr><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">50 g</td><td class="num">5 dkg</td></tr><tr><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">100 g</td><td class="num">10 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">63 g</td><td class="num">6,3 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">125 g</td><td class="num">12,5 dkg</td></tr><tr class="hl"><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">500 g</td><td class="num">50 dkg</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">2,5 g</td><td class="num">0,25 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">7,5 g</td><td class="num">0,75 dkg</td></tr><tr><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">50 g</td><td class="num">5 dkg</td></tr><tr><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">100 g</td><td class="num">10 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">63 g</td><td class="num">6,3 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">125 g</td><td class="num">12,5 dkg</td></tr><tr><th scope="row">1 cup (237 ml)</th><td class="num">237 ml</td><td class="num">120 g</td><td class="num">12 dkg</td></tr><tr class="hl"><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">500 g</td><td class="num">50 dkg</td></tr></tbody></table></div>
 
 <h2>Darált mák átváltási táblázat: tömeg → térfogat</h2>
-<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">2</td><td class="num">0,8</td><td class="num">1</td><td class="num">13,3</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">4</td><td class="num">1,6</td><td class="num">2</td><td class="num">26,8</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">5</td><td class="num">2</td><td class="num">2,5</td><td class="num">33,3</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">10</td><td class="num">4</td><td class="num">5</td><td class="num">66,8</td></tr><tr><th scope="row">1 kg</th><td class="num">20</td><td class="num">8</td><td class="num">10</td><td class="num">133</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th><th scope="col" class="num">cup</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">2</td><td class="num">0,8</td><td class="num">1</td><td class="num">13,3</td><td class="num">0,8</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">4</td><td class="num">1,6</td><td class="num">2</td><td class="num">26,8</td><td class="num">1,7</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">5</td><td class="num">2</td><td class="num">2,5</td><td class="num">33,3</td><td class="num">2,1</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">10</td><td class="num">4</td><td class="num">5</td><td class="num">66,8</td><td class="num">4,2</td></tr><tr><th scope="row">1 kg</th><td class="num">20</td><td class="num">8</td><td class="num">10</td><td class="num">133</td><td class="num">8,5</td></tr></tbody></table></div>
 
 <h2>Mit érdemes tudni?</h2>
 <p>A magvak és a darálék tömege az őrlés finomságától függ: a durvára vágott, levegős darálék könnyebb, a finomra őrölt, tömörödő nehezebb. A táblázat átlagos értékekkel számol.</p>
+<p>A darált mák és az egész mák tömege eltér: az őrölt mák levegősebb. Az itt használt érték a darált mákra vonatkozik. Mákos tésztákhoz a mák cukrozását is figyelembe kell venni.</p>
 
 <p>Az oldal darált mák esetén <strong>0,5 g/ml</strong> sűrűséggel számol (1 dl ≈ 50 g). A használt mérőedények: 1 bögre = 2,5 dl, 1 pohár = 2 dl, 1 evőkanál = 15 ml, 1 teáskanál = 5 ml. A pontos mennyiséghez mérj mérlegen.</p>
 
@@ -91,6 +92,12 @@
   <li><a href="/atvaltas/hany-bogre-1-kg-mak/">Hány bögre 1 kg darált mák?</a></li>
   <li><a href="/atvaltas/hany-evokanal-100-gramm-mak/">Hány evőkanál 100 g darált mák?</a></li>
   <li><a href="/atvaltas/hany-evokanal-10-dkg-mak/">Hány evőkanál 10 dkg darált mák?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-cup-mak/">Hány gramm egy cup darált mák?</a></li>
+  <li><a href="/atvaltas/hany-gramm-fel-cup-mak/">Hány gramm fél cup darált mák?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-tbsp-mak/">Hány gramm egy tbsp darált mák?</a></li>
+  <li><a href="/atvaltas/hany-cup-100-gramm-mak/">Hány cup 100 g darált mák?</a></li>
+  <li><a href="/atvaltas/hany-cup-1-lb-mak/">Hány cup 1 lb darált mák?</a></li>
+  <li><a href="/atvaltas/hany-cup-8-oz-mak/">Hány cup 8 oz darált mák?</a></li>
 </ul>
 
 <h2>Ugyanez más hozzávalóval</h2>
@@ -110,7 +117,7 @@
   <div class="wrap">
     <p><strong>Konyhai átváltó</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
     <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
-    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · © 2026 konyhaiatvalto.hu</p>
+    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · <a href="/adagszam-atszamolo/">Adagszám-átszámoló</a> · <a href="/amerikai-mertekek/">Amerikai mértékek</a> · © 2026 konyhaiatvalto.hu</p>
   </div>
 </footer>
 

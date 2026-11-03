@@ -23,7 +23,7 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/brand/app-icon-180.png">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/assets/style.css?v=3509e1dc">
+<link rel="stylesheet" href="/assets/style.css?v=87b23ea9">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Főoldal","item":"https://konyhaiatvalto.hu/"},{"@type":"ListItem","position":2,"name":"Mascarpone","item":"https://konyhaiatvalto.hu/hozzavalo/mascarpone/"},{"@type":"ListItem","position":3,"name":"Hány dkg 1 dl mascarpone?","item":"https://konyhaiatvalto.hu/atvaltas/hany-dkg-1-dl-mascarpone/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hány dkg 1 dl mascarpone?","acceptedAnswer":{"@type":"Answer","text":"1 dl mascarpone kb. 10 dkg, azaz 100 g."}},{"@type":"Question","name":"Hány gramm egy bögre mascarpone?","acceptedAnswer":{"@type":"Answer","text":"Egy bögre (2,5 dl) mascarpone kb. 250 g, vagyis 25 dkg."}},{"@type":"Question","name":"Hány gramm egy evőkanál mascarpone?","acceptedAnswer":{"@type":"Answer","text":"Egy evőkanál (15 ml) mascarpone kb. 15 g, vagyis 1,5 dkg."}},{"@type":"Question","name":"Mennyi a mascarpone sűrűsége?","acceptedAnswer":{"@type":"Answer","text":"A mascarpone sűrűsége átlagosan kb. 1 g/ml, vagyis 1 dl mascarpone kb. 100 g. Az oldal ezzel az értékkel számol."}},{"@type":"Question","name":"Mennyire pontos ez az átváltás?","acceptedAnswer":{"@type":"Answer","text":"Tájékoztató érték. A tejtermékek sűrűsége a vízéhez közeli, a pontos érték a zsírtartalomtól és a tömörségtől függ. A reszelt sajt és a tejpor kivétel: ezek levegősek, ezért térfogatra sokkal kevesebbet nyomnak."}}]}</script>
 </head>
@@ -32,10 +32,10 @@
   <div class="wrap">
     <a class="brand" href="/" aria-label="Konyhai átváltó – főoldal"><img src="/brand/favicon.svg" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
     <nav aria-label="Fő menü">
-      <a href="/">Átváltó</a>
       <a href="/#hozzavalok">Hozzávalók</a>
       <a href="/darab/">Darabos</a>
       <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a>
+      <a href="/adagszam-atszamolo/">Adagszám</a>
       <a href="/mertekegysegek/">Mértékegységek</a>
     </nav>
   </div>
@@ -52,13 +52,14 @@
 </section>
 
 <h2>Mascarpone átváltási táblázat: térfogat → tömeg</h2>
-<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">5 g</td><td class="num">0,5 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">15 g</td><td class="num">1,5 dkg</td></tr><tr class="hl"><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">100 g</td><td class="num">10 dkg</td></tr><tr><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">200 g</td><td class="num">20 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">125 g</td><td class="num">12,5 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">250 g</td><td class="num">25 dkg</td></tr><tr><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">1000 g</td><td class="num">100 dkg</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">5 g</td><td class="num">0,5 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">15 g</td><td class="num">1,5 dkg</td></tr><tr class="hl"><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">100 g</td><td class="num">10 dkg</td></tr><tr><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">200 g</td><td class="num">20 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">125 g</td><td class="num">12,5 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">250 g</td><td class="num">25 dkg</td></tr><tr><th scope="row">1 cup (237 ml)</th><td class="num">237 ml</td><td class="num">235 g</td><td class="num">23,5 dkg</td></tr><tr><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">1000 g</td><td class="num">100 dkg</td></tr></tbody></table></div>
 
 <h2>Mascarpone átváltási táblázat: tömeg → térfogat</h2>
-<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">1</td><td class="num">0,4</td><td class="num">0,5</td><td class="num">6,75</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">2</td><td class="num">0,8</td><td class="num">1</td><td class="num">13,3</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">2,5</td><td class="num">1</td><td class="num">1,3</td><td class="num">16,8</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">5</td><td class="num">2</td><td class="num">2,5</td><td class="num">33,3</td></tr><tr><th scope="row">1 kg</th><td class="num">10</td><td class="num">4</td><td class="num">5</td><td class="num">66,8</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th><th scope="col" class="num">cup</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">1</td><td class="num">0,4</td><td class="num">0,5</td><td class="num">6,75</td><td class="num">0,4</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">2</td><td class="num">0,8</td><td class="num">1</td><td class="num">13,3</td><td class="num">0,8</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">2,5</td><td class="num">1</td><td class="num">1,3</td><td class="num">16,8</td><td class="num">1,1</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">5</td><td class="num">2</td><td class="num">2,5</td><td class="num">33,3</td><td class="num">2,1</td></tr><tr><th scope="row">1 kg</th><td class="num">10</td><td class="num">4</td><td class="num">5</td><td class="num">66,8</td><td class="num">4,2</td></tr></tbody></table></div>
 
 <h2>Mit érdemes tudni?</h2>
 <p>A tejtermékek sűrűsége a vízéhez közeli, a pontos érték a zsírtartalomtól és a tömörségtől függ. A reszelt sajt és a tejpor kivétel: ezek levegősek, ezért térfogatra sokkal kevesebbet nyomnak.</p>
+<p>A mascarpone krémes és sűrű, a vízhez közeli sűrűséggel. Hűtőből kivéve simára keverve könnyebben kimérhető. Egy csomag általában 250 g, ami kb. 2,5 dl.</p>
 
 <p>Az oldal mascarpone esetén <strong>1 g/ml</strong> sűrűséggel számol (1 dl ≈ 100 g). A használt mérőedények: 1 bögre = 2,5 dl, 1 pohár = 2 dl, 1 evőkanál = 15 ml, 1 teáskanál = 5 ml. A pontos mennyiséghez mérj mérlegen.</p>
 
@@ -91,6 +92,12 @@
   <li><a href="/atvaltas/hany-bogre-1-kg-mascarpone/">Hány bögre 1 kg mascarpone?</a></li>
   <li><a href="/atvaltas/hany-evokanal-100-gramm-mascarpone/">Hány evőkanál 100 g mascarpone?</a></li>
   <li><a href="/atvaltas/hany-evokanal-10-dkg-mascarpone/">Hány evőkanál 10 dkg mascarpone?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-cup-mascarpone/">Hány gramm egy cup mascarpone?</a></li>
+  <li><a href="/atvaltas/hany-gramm-fel-cup-mascarpone/">Hány gramm fél cup mascarpone?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-tbsp-mascarpone/">Hány gramm egy tbsp mascarpone?</a></li>
+  <li><a href="/atvaltas/hany-cup-100-gramm-mascarpone/">Hány cup 100 g mascarpone?</a></li>
+  <li><a href="/atvaltas/hany-cup-1-lb-mascarpone/">Hány cup 1 lb mascarpone?</a></li>
+  <li><a href="/atvaltas/hany-cup-8-oz-mascarpone/">Hány cup 8 oz mascarpone?</a></li>
 </ul>
 
 <h2>Ugyanez más hozzávalóval</h2>
@@ -110,7 +117,7 @@
   <div class="wrap">
     <p><strong>Konyhai átváltó</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
     <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
-    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · © 2026 konyhaiatvalto.hu</p>
+    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · <a href="/adagszam-atszamolo/">Adagszám-átszámoló</a> · <a href="/amerikai-mertekek/">Amerikai mértékek</a> · © 2026 konyhaiatvalto.hu</p>
   </div>
 </footer>
 

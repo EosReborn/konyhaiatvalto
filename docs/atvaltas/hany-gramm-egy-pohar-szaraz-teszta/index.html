@@ -23,7 +23,7 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/brand/app-icon-180.png">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/assets/style.css?v=3509e1dc">
+<link rel="stylesheet" href="/assets/style.css?v=87b23ea9">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Főoldal","item":"https://konyhaiatvalto.hu/"},{"@type":"ListItem","position":2,"name":"Száraz tészta","item":"https://konyhaiatvalto.hu/hozzavalo/szaraz-teszta/"},{"@type":"ListItem","position":3,"name":"Hány gramm egy pohár száraz tészta?","item":"https://konyhaiatvalto.hu/atvaltas/hany-gramm-egy-pohar-szaraz-teszta/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hány gramm egy pohár száraz tészta?","acceptedAnswer":{"@type":"Answer","text":"Egy pohár (2 dl) száraz tészta kb. 90 g, vagyis 9 dkg."}},{"@type":"Question","name":"Hány gramm egy bögre száraz tészta?","acceptedAnswer":{"@type":"Answer","text":"Egy bögre (2,5 dl) száraz tészta kb. 115 g, vagyis 11,5 dkg."}},{"@type":"Question","name":"Hány gramm 1 dl száraz tészta?","acceptedAnswer":{"@type":"Answer","text":"1 dl száraz tészta kb. 45 g, vagyis 4,5 dkg."}},{"@type":"Question","name":"Mennyi a száraz tészta sűrűsége?","acceptedAnswer":{"@type":"Answer","text":"A száraz tészta sűrűsége átlagosan kb. 0,45 g/ml, vagyis 1 dl száraz tészta kb. 45 g. Az oldal ezzel az értékkel számol. Rövid tésztákra (kifli, penne, fodros nagykocka) vonatkozik; a spagetti és a hosszú tészták nem mérhetők jól bögrével."}},{"@type":"Question","name":"Mennyire pontos ez az átváltás?","acceptedAnswer":{"@type":"Answer","text":"Tájékoztató érték. A szemes élelmiszerek térfogattömege a szemcseméret és a tömörödés miatt tág határok között mozog (főleg a tésztaformák esetében), ezért az érték iránymutató. Nyers, száraz állapotra vonatkozik; főzés után a tömeg a többszörösére nő."}}]}</script>
 </head>
@@ -32,10 +32,10 @@
   <div class="wrap">
     <a class="brand" href="/" aria-label="Konyhai átváltó – főoldal"><img src="/brand/favicon.svg" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
     <nav aria-label="Fő menü">
-      <a href="/">Átváltó</a>
       <a href="/#hozzavalok">Hozzávalók</a>
       <a href="/darab/">Darabos</a>
       <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a>
+      <a href="/adagszam-atszamolo/">Adagszám</a>
       <a href="/mertekegysegek/">Mértékegységek</a>
     </nav>
   </div>
@@ -52,13 +52,14 @@
 </section>
 
 <h2>Száraz tészta átváltási táblázat: térfogat → tömeg</h2>
-<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">2,5 g</td><td class="num">0,25 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">7 g</td><td class="num">0,7 dkg</td></tr><tr><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">45 g</td><td class="num">4,5 dkg</td></tr><tr class="hl"><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">90 g</td><td class="num">9 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">56 g</td><td class="num">5,6 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">115 g</td><td class="num">11,5 dkg</td></tr><tr><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">450 g</td><td class="num">45 dkg</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">2,5 g</td><td class="num">0,25 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">7 g</td><td class="num">0,7 dkg</td></tr><tr><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">45 g</td><td class="num">4,5 dkg</td></tr><tr class="hl"><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">90 g</td><td class="num">9 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">56 g</td><td class="num">5,6 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">115 g</td><td class="num">11,5 dkg</td></tr><tr><th scope="row">1 cup (237 ml)</th><td class="num">237 ml</td><td class="num">105 g</td><td class="num">10,5 dkg</td></tr><tr><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">450 g</td><td class="num">45 dkg</td></tr></tbody></table></div>
 
 <h2>Száraz tészta átváltási táblázat: tömeg → térfogat</h2>
-<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">2,2</td><td class="num">0,9</td><td class="num">1,1</td><td class="num">14,8</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">4,4</td><td class="num">1,8</td><td class="num">2,2</td><td class="num">29,8</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">5,6</td><td class="num">2,2</td><td class="num">2,8</td><td class="num">37</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">11,1</td><td class="num">4,4</td><td class="num">5,6</td><td class="num">74</td></tr><tr><th scope="row">1 kg</th><td class="num">22,2</td><td class="num">8,9</td><td class="num">11,1</td><td class="num">148</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th><th scope="col" class="num">cup</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">2,2</td><td class="num">0,9</td><td class="num">1,1</td><td class="num">14,8</td><td class="num">0,9</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">4,4</td><td class="num">1,8</td><td class="num">2,2</td><td class="num">29,8</td><td class="num">1,9</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">5,6</td><td class="num">2,2</td><td class="num">2,8</td><td class="num">37</td><td class="num">2,3</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">11,1</td><td class="num">4,4</td><td class="num">5,6</td><td class="num">74</td><td class="num">4,7</td></tr><tr><th scope="row">1 kg</th><td class="num">22,2</td><td class="num">8,9</td><td class="num">11,1</td><td class="num">148</td><td class="num">9,4</td></tr></tbody></table></div>
 
 <h2>Mit érdemes tudni?</h2>
 <p>A szemes élelmiszerek térfogattömege a szemcseméret és a tömörödés miatt tág határok között mozog (főleg a tésztaformák esetében), ezért az érték iránymutató. Nyers, száraz állapotra vonatkozik; főzés után a tömeg a többszörösére nő.</p>
+<p>A száraz tészta térfogattömege az alakjától függ: a rövid, tömör formák (kifli, penne) többet nyomnak, a hosszú tészták (spagetti) bögrében nehezen mérhetők. Főzés után a tészta kb. a kétszeresére nő.</p>
 <p>Rövid tésztákra (kifli, penne, fodros nagykocka) vonatkozik; a spagetti és a hosszú tészták nem mérhetők jól bögrével.</p>
 <p>Az oldal száraz tészta esetén <strong>0,45 g/ml</strong> sűrűséggel számol (1 dl ≈ 45 g). A használt mérőedények: 1 bögre = 2,5 dl, 1 pohár = 2 dl, 1 evőkanál = 15 ml, 1 teáskanál = 5 ml. A pontos mennyiséghez mérj mérlegen.</p>
 
@@ -91,6 +92,12 @@
   <li><a href="/atvaltas/hany-bogre-1-kg-szaraz-teszta/">Hány bögre 1 kg száraz tészta?</a></li>
   <li><a href="/atvaltas/hany-evokanal-100-gramm-szaraz-teszta/">Hány evőkanál 100 g száraz tészta?</a></li>
   <li><a href="/atvaltas/hany-evokanal-10-dkg-szaraz-teszta/">Hány evőkanál 10 dkg száraz tészta?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-cup-szaraz-teszta/">Hány gramm egy cup száraz tészta?</a></li>
+  <li><a href="/atvaltas/hany-gramm-fel-cup-szaraz-teszta/">Hány gramm fél cup száraz tészta?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-tbsp-szaraz-teszta/">Hány gramm egy tbsp száraz tészta?</a></li>
+  <li><a href="/atvaltas/hany-cup-100-gramm-szaraz-teszta/">Hány cup 100 g száraz tészta?</a></li>
+  <li><a href="/atvaltas/hany-cup-1-lb-szaraz-teszta/">Hány cup 1 lb száraz tészta?</a></li>
+  <li><a href="/atvaltas/hany-cup-8-oz-szaraz-teszta/">Hány cup 8 oz száraz tészta?</a></li>
 </ul>
 
 <h2>Ugyanez más hozzávalóval</h2>
@@ -110,7 +117,7 @@
   <div class="wrap">
     <p><strong>Konyhai átváltó</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
     <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
-    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · © 2026 konyhaiatvalto.hu</p>
+    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · <a href="/adagszam-atszamolo/">Adagszám-átszámoló</a> · <a href="/amerikai-mertekek/">Amerikai mértékek</a> · © 2026 konyhaiatvalto.hu</p>
   </div>
 </footer>
 

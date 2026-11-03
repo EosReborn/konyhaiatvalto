@@ -23,7 +23,7 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/brand/app-icon-180.png">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/assets/style.css?v=3509e1dc">
+<link rel="stylesheet" href="/assets/style.css?v=87b23ea9">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Főoldal","item":"https://konyhaiatvalto.hu/"},{"@type":"ListItem","position":2,"name":"Darált dió","item":"https://konyhaiatvalto.hu/hozzavalo/dio/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hány gramm egy bögre darált dió?","acceptedAnswer":{"@type":"Answer","text":"Egy bögre (2,5 dl) darált dió kb. 100 g, vagyis 10 dkg."}},{"@type":"Question","name":"Hány dkg 1 dl darált dió?","acceptedAnswer":{"@type":"Answer","text":"1 dl darált dió kb. 4 dkg, azaz 40 g."}},{"@type":"Question","name":"Hány gramm egy evőkanál darált dió?","acceptedAnswer":{"@type":"Answer","text":"Egy evőkanál (15 ml) darált dió kb. 6 g, vagyis 0,6 dkg."}},{"@type":"Question","name":"Hány dl 10 dkg darált dió?","acceptedAnswer":{"@type":"Answer","text":"10 dkg (100 g) darált dió kb. 2,5 dl, azaz kb. 1 bögre."}},{"@type":"Question","name":"Mennyi a darált dió sűrűsége?","acceptedAnswer":{"@type":"Answer","text":"A darált dió sűrűsége átlagosan kb. 0,4 g/ml, vagyis 1 dl darált dió kb. 40 g. Az oldal ezzel az értékkel számol."}}]}</script>
 </head>
@@ -32,10 +32,10 @@
   <div class="wrap">
     <a class="brand" href="/" aria-label="Konyhai átváltó – főoldal"><img src="/brand/favicon.svg" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
     <nav aria-label="Fő menü">
-      <a href="/">Átváltó</a>
       <a href="/#hozzavalok">Hozzávalók</a>
       <a href="/darab/">Darabos</a>
       <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a>
+      <a href="/adagszam-atszamolo/">Adagszám</a>
       <a href="/mertekegysegek/">Mértékegységek</a>
     </nav>
   </div>
@@ -56,13 +56,14 @@
 </section>
 
 <h2>Térfogat → tömeg</h2>
-<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">2 g</td><td class="num">0,2 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">6 g</td><td class="num">0,6 dkg</td></tr><tr><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">40 g</td><td class="num">4 dkg</td></tr><tr><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">80 g</td><td class="num">8 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">50 g</td><td class="num">5 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">100 g</td><td class="num">10 dkg</td></tr><tr><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">400 g</td><td class="num">40 dkg</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">2 g</td><td class="num">0,2 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">6 g</td><td class="num">0,6 dkg</td></tr><tr><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">40 g</td><td class="num">4 dkg</td></tr><tr><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">80 g</td><td class="num">8 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">50 g</td><td class="num">5 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">100 g</td><td class="num">10 dkg</td></tr><tr><th scope="row">1 cup (237 ml)</th><td class="num">237 ml</td><td class="num">95 g</td><td class="num">9,5 dkg</td></tr><tr><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">400 g</td><td class="num">40 dkg</td></tr></tbody></table></div>
 
 <h2>Tömeg → térfogat</h2>
-<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">2,5</td><td class="num">1</td><td class="num">1,3</td><td class="num">16,8</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">5</td><td class="num">2</td><td class="num">2,5</td><td class="num">33,3</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">6,3</td><td class="num">2,5</td><td class="num">3,1</td><td class="num">41,8</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">12,5</td><td class="num">5</td><td class="num">6,3</td><td class="num">83,3</td></tr><tr><th scope="row">1 kg</th><td class="num">25</td><td class="num">10</td><td class="num">12,5</td><td class="num">167</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th><th scope="col" class="num">cup</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">2,5</td><td class="num">1</td><td class="num">1,3</td><td class="num">16,8</td><td class="num">1,1</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">5</td><td class="num">2</td><td class="num">2,5</td><td class="num">33,3</td><td class="num">2,1</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">6,3</td><td class="num">2,5</td><td class="num">3,1</td><td class="num">41,8</td><td class="num">2,6</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">12,5</td><td class="num">5</td><td class="num">6,3</td><td class="num">83,3</td><td class="num">5,3</td></tr><tr><th scope="row">1 kg</th><td class="num">25</td><td class="num">10</td><td class="num">12,5</td><td class="num">167</td><td class="num">10,6</td></tr></tbody></table></div>
 
 <h2>Mit érdemes tudni?</h2>
 <p>A magvak és a darálék tömege az őrlés finomságától függ: a durvára vágott, levegős darálék könnyebb, a finomra őrölt, tömörödő nehezebb. A táblázat átlagos értékekkel számol.</p>
+<p>A darált dió tömege a darálás finomságától függ: a durvára vágott levegősebb, a finomra őrölt tömörebb. A tömeg az egész dióra és a darálékra is közelítő, süteményekhez a mérlegen mért mennyiség a pontos.</p>
 
 
 <section aria-labelledby="faq"><h2 id="faq">Gyakori kérdések</h2>
@@ -94,6 +95,12 @@
   <li><a href="/atvaltas/hany-bogre-1-kg-dio/">Hány bögre 1 kg darált dió?</a></li>
   <li><a href="/atvaltas/hany-evokanal-100-gramm-dio/">Hány evőkanál 100 g darált dió?</a></li>
   <li><a href="/atvaltas/hany-evokanal-10-dkg-dio/">Hány evőkanál 10 dkg darált dió?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-cup-dio/">Hány gramm egy cup darált dió?</a></li>
+  <li><a href="/atvaltas/hany-gramm-fel-cup-dio/">Hány gramm fél cup darált dió?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-tbsp-dio/">Hány gramm egy tbsp darált dió?</a></li>
+  <li><a href="/atvaltas/hany-cup-100-gramm-dio/">Hány cup 100 g darált dió?</a></li>
+  <li><a href="/atvaltas/hany-cup-1-lb-dio/">Hány cup 1 lb darált dió?</a></li>
+  <li><a href="/atvaltas/hany-cup-8-oz-dio/">Hány cup 8 oz darált dió?</a></li>
 </ul>
 
 <h2>Magvak és szárított gyümölcs</h2>
@@ -112,7 +119,7 @@
   <div class="wrap">
     <p><strong>Konyhai átváltó</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
     <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
-    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · © 2026 konyhaiatvalto.hu</p>
+    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · <a href="/adagszam-atszamolo/">Adagszám-átszámoló</a> · <a href="/amerikai-mertekek/">Amerikai mértékek</a> · © 2026 konyhaiatvalto.hu</p>
   </div>
 </footer>
 

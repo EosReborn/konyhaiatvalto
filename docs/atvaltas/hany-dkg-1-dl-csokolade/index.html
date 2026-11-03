@@ -23,7 +23,7 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/brand/app-icon-180.png">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/assets/style.css?v=3509e1dc">
+<link rel="stylesheet" href="/assets/style.css?v=87b23ea9">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Főoldal","item":"https://konyhaiatvalto.hu/"},{"@type":"ListItem","position":2,"name":"Darabolt csokoládé","item":"https://konyhaiatvalto.hu/hozzavalo/csokolade/"},{"@type":"ListItem","position":3,"name":"Hány dkg 1 dl darabolt csokoládé?","item":"https://konyhaiatvalto.hu/atvaltas/hany-dkg-1-dl-csokolade/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hány dkg 1 dl darabolt csokoládé?","acceptedAnswer":{"@type":"Answer","text":"1 dl darabolt csokoládé kb. 6 dkg, azaz 60 g."}},{"@type":"Question","name":"Hány gramm egy bögre darabolt csokoládé?","acceptedAnswer":{"@type":"Answer","text":"Egy bögre (2,5 dl) darabolt csokoládé kb. 150 g, vagyis 15 dkg."}},{"@type":"Question","name":"Hány gramm egy evőkanál darabolt csokoládé?","acceptedAnswer":{"@type":"Answer","text":"Egy evőkanál (15 ml) darabolt csokoládé kb. 9 g, vagyis 0,9 dkg."}},{"@type":"Question","name":"Mennyi a darabolt csokoládé sűrűsége?","acceptedAnswer":{"@type":"Answer","text":"A darabolt csokoládé sűrűsége átlagosan kb. 0,6 g/ml, vagyis 1 dl darabolt csokoládé kb. 60 g. Az oldal ezzel az értékkel számol. Az érték a durvára vágott vagy reszelt csokoládéra, illetve a csokidarabkákra (chips) vonatkozik."}},{"@type":"Question","name":"Mennyire pontos ez az átváltás?","acceptedAnswer":{"@type":"Answer","text":"Tájékoztató érték. A kristálycukor szemcsés, ezért sűrűn tömörödik, a porcukor és a kakaópor viszont levegős: ezekből ugyanaz a térfogat jóval kevesebbet nyom. A mézet és a szirupokat hidegen, kanálból lecsúszva érdemes kimérni, a halmozott kanál sokat tévedhet."}}]}</script>
 </head>
@@ -32,10 +32,10 @@
   <div class="wrap">
     <a class="brand" href="/" aria-label="Konyhai átváltó – főoldal"><img src="/brand/favicon.svg" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
     <nav aria-label="Fő menü">
-      <a href="/">Átváltó</a>
       <a href="/#hozzavalok">Hozzávalók</a>
       <a href="/darab/">Darabos</a>
       <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a>
+      <a href="/adagszam-atszamolo/">Adagszám</a>
       <a href="/mertekegysegek/">Mértékegységek</a>
     </nav>
   </div>
@@ -52,13 +52,14 @@
 </section>
 
 <h2>Darabolt csokoládé átváltási táblázat: térfogat → tömeg</h2>
-<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">3 g</td><td class="num">0,3 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">9 g</td><td class="num">0,9 dkg</td></tr><tr class="hl"><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">60 g</td><td class="num">6 dkg</td></tr><tr><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">120 g</td><td class="num">12 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">75 g</td><td class="num">7,5 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">150 g</td><td class="num">15 dkg</td></tr><tr><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">600 g</td><td class="num">60 dkg</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Mennyiség</th><th scope="col" class="num">Térfogat</th><th scope="col" class="num">Tömeg (g)</th><th scope="col" class="num">Tömeg (dkg)</th></tr></thead><tbody><tr><th scope="row">1 teáskanál (5 ml)</th><td class="num">5 ml</td><td class="num">3 g</td><td class="num">0,3 dkg</td></tr><tr><th scope="row">1 evőkanál (15 ml)</th><td class="num">15 ml</td><td class="num">9 g</td><td class="num">0,9 dkg</td></tr><tr class="hl"><th scope="row">1 dl</th><td class="num">100 ml</td><td class="num">60 g</td><td class="num">6 dkg</td></tr><tr><th scope="row">1 pohár (2 dl)</th><td class="num">200 ml</td><td class="num">120 g</td><td class="num">12 dkg</td></tr><tr><th scope="row">1/2 bögre (1,25 dl)</th><td class="num">125 ml</td><td class="num">75 g</td><td class="num">7,5 dkg</td></tr><tr><th scope="row">1 bögre (2,5 dl)</th><td class="num">250 ml</td><td class="num">150 g</td><td class="num">15 dkg</td></tr><tr><th scope="row">1 cup (237 ml)</th><td class="num">237 ml</td><td class="num">140 g</td><td class="num">14 dkg</td></tr><tr><th scope="row">1 liter</th><td class="num">1000 ml</td><td class="num">600 g</td><td class="num">60 dkg</td></tr></tbody></table></div>
 
 <h2>Darabolt csokoládé átváltási táblázat: tömeg → térfogat</h2>
-<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">1,7</td><td class="num">0,7</td><td class="num">0,8</td><td class="num">11</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">3,3</td><td class="num">1,3</td><td class="num">1,7</td><td class="num">22,3</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">4,2</td><td class="num">1,7</td><td class="num">2,1</td><td class="num">27,8</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">8,3</td><td class="num">3,3</td><td class="num">4,2</td><td class="num">55,5</td></tr><tr><th scope="row">1 kg</th><td class="num">16,7</td><td class="num">6,7</td><td class="num">8,3</td><td class="num">111</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th scope="col">Tömeg</th><th scope="col" class="num">dl</th><th scope="col" class="num">bögre</th><th scope="col" class="num">pohár</th><th scope="col" class="num">evőkanál</th><th scope="col" class="num">cup</th></tr></thead><tbody><tr><th scope="row">10 dkg (100 g)</th><td class="num">1,7</td><td class="num">0,7</td><td class="num">0,8</td><td class="num">11</td><td class="num">0,7</td></tr><tr><th scope="row">20 dkg (200 g)</th><td class="num">3,3</td><td class="num">1,3</td><td class="num">1,7</td><td class="num">22,3</td><td class="num">1,4</td></tr><tr><th scope="row">25 dkg (250 g)</th><td class="num">4,2</td><td class="num">1,7</td><td class="num">2,1</td><td class="num">27,8</td><td class="num">1,8</td></tr><tr><th scope="row">50 dkg (500 g)</th><td class="num">8,3</td><td class="num">3,3</td><td class="num">4,2</td><td class="num">55,5</td><td class="num">3,5</td></tr><tr><th scope="row">1 kg</th><td class="num">16,7</td><td class="num">6,7</td><td class="num">8,3</td><td class="num">111</td><td class="num">7</td></tr></tbody></table></div>
 
 <h2>Mit érdemes tudni?</h2>
 <p>A kristálycukor szemcsés, ezért sűrűn tömörödik, a porcukor és a kakaópor viszont levegős: ezekből ugyanaz a térfogat jóval kevesebbet nyom. A mézet és a szirupokat hidegen, kanálból lecsúszva érdemes kimérni, a halmozott kanál sokat tévedhet.</p>
+<p>A darabolt csokoládé tömege attól függ, mekkorák a darabok: a kisebb, aprított csokoládéból több fér a bögrébe. Olvasztáshoz és krémhez érdemes lemérni, hogy a recept állaga pontos legyen.</p>
 <p>Az érték a durvára vágott vagy reszelt csokoládéra, illetve a csokidarabkákra (chips) vonatkozik.</p>
 <p>Az oldal darabolt csokoládé esetén <strong>0,6 g/ml</strong> sűrűséggel számol (1 dl ≈ 60 g). A használt mérőedények: 1 bögre = 2,5 dl, 1 pohár = 2 dl, 1 evőkanál = 15 ml, 1 teáskanál = 5 ml. A pontos mennyiséghez mérj mérlegen.</p>
 
@@ -91,6 +92,12 @@
   <li><a href="/atvaltas/hany-bogre-1-kg-csokolade/">Hány bögre 1 kg darabolt csokoládé?</a></li>
   <li><a href="/atvaltas/hany-evokanal-100-gramm-csokolade/">Hány evőkanál 100 g darabolt csokoládé?</a></li>
   <li><a href="/atvaltas/hany-evokanal-10-dkg-csokolade/">Hány evőkanál 10 dkg darabolt csokoládé?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-cup-csokolade/">Hány gramm egy cup darabolt csokoládé?</a></li>
+  <li><a href="/atvaltas/hany-gramm-fel-cup-csokolade/">Hány gramm fél cup darabolt csokoládé?</a></li>
+  <li><a href="/atvaltas/hany-gramm-egy-tbsp-csokolade/">Hány gramm egy tbsp darabolt csokoládé?</a></li>
+  <li><a href="/atvaltas/hany-cup-100-gramm-csokolade/">Hány cup 100 g darabolt csokoládé?</a></li>
+  <li><a href="/atvaltas/hany-cup-1-lb-csokolade/">Hány cup 1 lb darabolt csokoládé?</a></li>
+  <li><a href="/atvaltas/hany-cup-8-oz-csokolade/">Hány cup 8 oz darabolt csokoládé?</a></li>
 </ul>
 
 <h2>Ugyanez más hozzávalóval</h2>
@@ -110,7 +117,7 @@
   <div class="wrap">
     <p><strong>Konyhai átváltó</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
     <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
-    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · © 2026 konyhaiatvalto.hu</p>
+    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · <a href="/adagszam-atszamolo/">Adagszám-átszámoló</a> · <a href="/amerikai-mertekek/">Amerikai mértékek</a> · © 2026 konyhaiatvalto.hu</p>
   </div>
 </footer>
 

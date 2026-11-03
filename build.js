@@ -40,7 +40,7 @@ const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const art = (w) => (/^[aáeéiíoóöőuúüű]/i.test(w) ? 'az' : 'a');
 const T = (u) => UNITS[u].text;
 const ASK = (u) => UNITS[u].ask;
-const SPOONISH = ['bogre', 'pohar', 'evokanal', 'teaskanal'];
+const SPOONISH = ['bogre', 'pohar', 'evokanal', 'teaskanal', 'uscup', 'ustbsp', 'ustsp'];
 
 function ldScript(obj) {
   return '<script type="application/ld+json">' + JSON.stringify(obj).replace(/</g, '\\u003c') + '</script>';
@@ -72,13 +72,13 @@ function qLabel(q, u) {
 /** Zárójeles kiegészítés: bögre/pohár -> dl, kanalak -> ml */
 function ext(u, ml) {
   if (u === 'bogre' || u === 'pohar') return ' (' + fmt(ml / 100) + ' dl)';
-  if (u === 'evokanal' || u === 'teaskanal') return ' (' + fmt(ml) + ' ml)';
+  if (u === 'evokanal' || u === 'teaskanal' || UNITS[u].us) return ' (' + fmt(ml) + ' ml)';
   return '';
 }
 
 const hash = (s) => crypto.createHash('md5').update(s).digest('hex').slice(0, 8);
 const CSS_V = hash(fs.readFileSync(path.join(SRC, 'style.css')));
-const JS_V = hash(fs.readFileSync(path.join(SRC, 'app.js')) + fs.readFileSync(path.join(SRC, 'core.js')) + fs.readFileSync(path.join(SRC, 'oven.js')));
+const JS_V = hash(fs.readFileSync(path.join(SRC, 'app.js')) + fs.readFileSync(path.join(SRC, 'core.js')) + fs.readFileSync(path.join(SRC, 'oven.js')) + fs.readFileSync(path.join(SRC, 'scale.js')));
 
 /* ------------------------------------------------------------ fájlkezelés */
 
@@ -139,10 +139,10 @@ ${ld.map(ldScript).join('\n')}
   <div class="wrap">
     <a class="brand" href="${url('/')}" aria-label="Konyhai átváltó – főoldal"><img src="${url('/brand/favicon.svg')}" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
     <nav aria-label="Fő menü">
-      <a href="${url('/')}">Átváltó</a>
       <a href="${url('/#hozzavalok')}">Hozzávalók</a>
       <a href="${url('/darab/')}">Darabos</a>
       <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a>
+      <a href="${url('/adagszam-atszamolo/')}">Adagszám</a>
       <a href="${url('/mertekegysegek/')}">Mértékegységek</a>
     </nav>
   </div>
@@ -154,7 +154,7 @@ ${body}
   <div class="wrap">
     <p><strong>${BRAND}</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
     <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
-    <p><a href="${url('/')}">Főoldal</a> · <a href="${url('/mertekegysegek/')}">Mértékegységek</a> · <a href="${url('/#hozzavalok')}">Hozzávalók</a> · <a href="${url('/darab/')}">Darabos hozzávalók</a> · <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a> · © ${NOW.getFullYear()} konyhaiatvalto.hu</p>
+    <p><a href="${url('/')}">Főoldal</a> · <a href="${url('/mertekegysegek/')}">Mértékegységek</a> · <a href="${url('/#hozzavalok')}">Hozzávalók</a> · <a href="${url('/darab/')}">Darabos hozzávalók</a> · <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a> · <a href="${url('/adagszam-atszamolo/')}">Adagszám-átszámoló</a> · <a href="${url('/amerikai-mertekek/')}">Amerikai mértékek</a> · © ${NOW.getFullYear()} konyhaiatvalto.hu</p>
   </div>
 </footer>
 ${scripts}
@@ -234,9 +234,10 @@ function m2v(ing, q, u, t) {
   else if (t === 'bogre') tail = ', vagyis kb. ' + fmt(niceVol(ml / 100, 'dl')) + ' dl';
   else if (t === 'evokanal') tail = ', azaz kb. ' + fmt(niceVol(ml / 100, 'dl')) + ' dl';
   else if (t === 'teaskanal') tail = ', azaz kb. ' + fmt(niceVol(ml / 15, 'evokanal')) + ' evőkanál';
+  else if (t === 'uscup') tail = ', vagyis kb. ' + fmt(niceVol(ml / 100, 'dl')) + ' dl';
   const inp = u === 'g' ? `${fmt(q)} g` : `${fmt(q)} ${T(u)} (${fmt(gIn)} g)`;
   const sentence = `${cap(inp)} ${ing.name} kb. ${fmt(vol)} ${T(t)}${tail}.`;
-  const alt = t === 'bogre' ? fmt(niceVol(ml / 100, 'dl')) + ' dl' : t === 'dl' ? fmt(niceVol(ml / 250, 'bogre')) + ' bögre' : t === 'evokanal' ? fmt(niceVol(ml / 100, 'dl')) + ' dl' : fmt(niceVol(ml / 15, 'evokanal')) + ' evőkanál';
+  const alt = t === 'dl' ? fmt(niceVol(ml / 250, 'bogre')) + ' bögre' : t === 'teaskanal' ? fmt(niceVol(ml / 15, 'evokanal')) + ' evőkanál' : fmt(niceVol(ml / 100, 'dl')) + ' dl';
   const short = `Kb. ${fmt(vol)} ${T(t)} (${alt})`;
   let calc = `${fmt(gIn)} g ÷ ${fmt(d)} g/ml = ${fmt(ml)} ml`;
   if (t !== 'ml') calc += ` = ${fmt(volRaw)} ${T(t)}, kerekítve kb. ${fmt(vol)} ${T(t)}`;
@@ -258,12 +259,15 @@ function defsFor(ing) {
   if (ing.spice) {
     V(1, 'teaskanal', 'g'); V(0.5, 'teaskanal', 'g'); V(1, 'evokanal', 'g'); V(1, 'dl', 'g');
     M(5, 'g', 'teaskanal'); M(10, 'g', 'teaskanal'); M(10, 'g', 'evokanal');
+    V(1, 'ustsp', 'g');
   } else {
     V(1, 'bogre', 'g'); V(1, 'bogre', 'dkg'); V(0.5, 'bogre', 'g'); V(0.5, 'bogre', 'dkg');
     V(1, 'pohar', 'g'); V(1, 'pohar', 'dkg'); V(1, 'evokanal', 'g'); V(1, 'teaskanal', 'g');
     V(1, 'dl', 'g'); V(1, 'dl', 'dkg'); V(1, 'l', 'g'); V(1, 'l', 'kg');
     M(10, 'dkg', 'dl'); M(100, 'g', 'dl'); M(50, 'dkg', 'bogre'); M(500, 'g', 'bogre'); M(1, 'kg', 'bogre');
     M(100, 'g', 'evokanal'); M(10, 'dkg', 'evokanal');
+    V(1, 'uscup', 'g'); V(0.5, 'uscup', 'g'); V(1, 'ustbsp', 'g');
+    M(100, 'g', 'uscup'); M(1, 'lb', 'uscup'); M(8, 'oz', 'uscup');
   }
   return list;
 }
@@ -311,8 +315,8 @@ const calcLink = (ing, q, u, t) => `${url('/')}?e=${ing ? ing.slug : ''}&a=${q}&
 
 function volTable(ing, hl) {
   const spec = ing.spice
-    ? [[0.5, 'teaskanal'], [1, 'teaskanal'], [1, 'evokanal'], [1, 'dl']]
-    : [[1, 'teaskanal'], [1, 'evokanal'], [1, 'dl'], [1, 'pohar'], [0.5, 'bogre'], [1, 'bogre'], [1, 'l']];
+    ? [[0.5, 'teaskanal'], [1, 'teaskanal'], [1, 'ustsp'], [1, 'evokanal'], [1, 'dl']]
+    : [[1, 'teaskanal'], [1, 'evokanal'], [1, 'dl'], [1, 'pohar'], [0.5, 'bogre'], [1, 'bogre'], [1, 'uscup'], [1, 'l']];
   const rows = spec.map(([q, u]) => {
     const ml = q * UNITS[u].f;
     const g = niceMass(ml * ing.density);
@@ -326,7 +330,7 @@ function volTable(ing, hl) {
 
 function massTable(ing, hl) {
   const spec = ing.spice ? [[5, 'g'], [10, 'g'], [20, 'g'], [50, 'g']] : [[10, 'dkg'], [20, 'dkg'], [25, 'dkg'], [50, 'dkg'], [1, 'kg']];
-  const cols = ing.spice ? ['teaskanal', 'evokanal', 'dl'] : ['dl', 'bogre', 'pohar', 'evokanal'];
+  const cols = ing.spice ? ['teaskanal', 'evokanal', 'dl'] : ['dl', 'bogre', 'pohar', 'evokanal', 'uscup'];
   const rows = spec.map(([q, u]) => ({
     hl: hl && hl.kind === 'm2v' && hl.q === q && hl.u === u,
     cells: [
@@ -428,6 +432,7 @@ ${massTable(ing, def)}
 
 <h2>Mit érdemes tudni?</h2>
 <p>${esc(cat.note)}</p>
+${ing.about ? `<p>${esc(ing.about)}</p>` : ''}
 ${ing.note ? `<p>${esc(ing.note)}</p>` : ''}
 <p>Az oldal ${esc(ing.name)} esetén <strong>${fmt(ing.density)} g/ml</strong> sűrűséggel számol (1 dl ≈ ${qk.dl} g). A használt mérőedények: 1 bögre = 2,5 dl, 1 pohár = 2 dl, 1 evőkanál = 15 ml, 1 teáskanál = 5 ml. A pontos mennyiséghez mérj mérlegen.</p>
 
@@ -508,6 +513,7 @@ ${massTable(ing, null)}
 
 <h2>Mit érdemes tudni?</h2>
 <p>${esc(cat.note)}</p>
+${ing.about ? `<p>${esc(ing.about)}</p>` : ''}
 ${ing.note ? `<p>${esc(ing.note)}</p>` : ''}
 
 ${faqHtml(faqs)}
@@ -529,35 +535,46 @@ ${sameCat.length ? `<h2>${esc(cat.name)}</h2>
 /* ----------------------------------------------------- mértékegység-oldalak */
 
 const unitPairs = [];
-for (const group of [KA.VOLUME_ORDER, KA.MASS_ORDER]) {
+for (const group of [[...KA.VOLUME_ORDER, ...KA.VOLUME_US], [...KA.MASS_ORDER, ...KA.MASS_US]]) {
   for (const f of group) {
     for (const t of group) {
       if (f === t) continue;
       const v = convert(1, f, t);
       if (v < 0.01 || v > 1000) continue;
-      unitPairs.push({ f, t, v, path: `/atvaltas/hany-${UNITS[t].slug}-egy-${UNITS[f].slug}/`, question: `Hány ${ASK(t)} egy ${ASK(f)}?` });
+      unitPairs.push({ f, t, v, us: !!(UNITS[f].us || UNITS[t].us), path: `/atvaltas/hany-${UNITS[t].slug}-egy-${UNITS[f].slug}/`, question: `Hány ${ASK(t)} egy ${ASK(f)}?` });
     }
   }
 }
 
+const US_FAQ = [
+  { q: 'Hány ml egy cup?', a: 'Egy amerikai cup 236,6 ml, vagyis kb. 2,4 dl. A magyar konyhai bögre ennél kicsit nagyobb, 2,5 dl (250 ml).', u: ['uscup', 'ml'] },
+  { q: 'Hány evőkanál egy cup?', a: 'Egy amerikai cup 16 amerikai evőkanál (tbsp), vagyis kb. 237 ml.', u: ['uscup', 'ustbsp'] },
+  { q: 'Hány gramm egy oz?', a: 'Egy uncia (oz) 28,35 gramm, tehát 16 oz egy font (lb), ami 453,6 g.', u: ['oz', 'g'] },
+  { q: 'Hány ml egy fl oz?', a: 'Egy folyadékuncia (fl oz) 29,57 ml. Az amerikai cup 8 fl oz, a pint 16 fl oz.', u: ['floz', 'ml'] },
+  { q: 'Egyforma az amerikai és a magyar mérőpohár?', a: 'Nem. Az amerikai cup 236,6 ml, a magyar bögre 2,5 dl (250 ml), a pohár pedig 2 dl. Kis mennyiségnél a különbség jelentéktelen, nagyobb adagnál érdemes grammra váltani.', u: ['uscup', 'bogre'] },
+];
+
 function buildUnitPage(pr) {
   const { f, t, v } = pr;
-  const group = UNITS[f].type === 'v' ? KA.VOLUME_ORDER : KA.MASS_ORDER;
+  const isMass = UNITS[f].type === 'm';
   const eq = `1 ${T(f)} = ${fmt(v)} ${T(t)}`;
   const main = `${eq}`;
   const convention = f === 'bogre' || f === 'pohar' || t === 'bogre' || t === 'pohar'
     ? ' A bögre és a pohár nem szabványos mérték; a magyar konyhákban általában 2,5 dl-es bögrével és 2 dl-es pohárral számolnak.'
     : '';
-  const sentence = `${cap(eq)}.${convention}`;
+  const usNote = UNITS[f].us || UNITS[t].us ? ' Az amerikai cup 236,6 ml, kicsit kisebb a magyar bögrénél (2,5 dl).' : '';
+  const sentence = `${cap(eq)}.${convention}${f === 'uscup' || t === 'uscup' ? usNote : ''}`;
   const title = `${pr.question} ${eq} | ${BRAND}`;
-  const desc = trimDesc([`${pr.question} ${eq}.`, `Átváltási táblázat ${group === KA.MASS_ORDER ? 'gramm, dkg és kg' : 'ml, dl, liter, bögre, pohár, evőkanál és teáskanál'} között.`, 'Gyors konyhai átváltó.']);
+  const desc = trimDesc([`${pr.question} ${eq}.`, `Átváltási táblázat ${isMass ? 'gramm, dkg, kg, oz és lb' : 'ml, dl, bögre, pohár, kanalak és amerikai mértékek'} között.`, 'Gyors konyhai átváltó.']);
   const mult = [1, 2, 3, 4, 5, 10];
-  const cols = group.filter((u) => u !== f);
+  const base = isMass ? ['g', 'dkg', 'kg', 'oz', 'lb'] : UNITS[f].us ? ['ml', 'dl', 'bogre', 'pohar', 'evokanal', 'teaskanal', 'uscup', 'ustbsp', 'ustsp'] : [...KA.VOLUME_ORDER, 'uscup'];
+  const cols = [...new Set([t, ...base])].filter((u) => u !== f);
   const rows = mult.map((m) => ({ hl: m === 1, cells: [`${m} ${T(f)}`, ...cols.map((c) => fmt(convert(m, f, c)) + ' ' + T(c))] }));
-  const std = STD_FAQ.filter((s) => !(s.u[0] === f && s.u[1] === t)).slice(0, 3);
+  const std = (pr.us ? US_FAQ : STD_FAQ).filter((s) => !(s.u[0] === f && s.u[1] === t)).slice(0, 3);
   const faqs = [{ q: pr.question, a: sentence }, ...std.map(({ q, a }) => ({ q, a }))];
   const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Mértékegységek', p: '/mertekegysegek/' }, { name: pr.question, p: pr.path }]);
   const others = unitPairs.filter((x) => x !== pr && (x.f === f || x.t === t)).slice(0, 12);
+  const usLink = pr.us ? `<li><a href="${url('/amerikai-mertekek/')}">Amerikai mértékek – cup, oz, lb átváltása</a></li>` : '';
 
   const body = `
 ${bc.html}
@@ -571,13 +588,14 @@ ${bc.html}
 <h2>${esc(cap(T(f)))} átváltása más mértékegységekre</h2>
 ${tbl([cap(UNITS[f].ask), ...cols.map((c) => T(c))], rows)}
 
-${UNITS[f].type === 'v' ? `<p>Hozzávalók (liszt, cukor, tej…) esetén a térfogat tömegre váltásához a sűrűséget is figyelembe kell venni – ehhez nézd meg a <a href="${url('/#hozzavalok')}">hozzávalók átváltási táblázatát</a>.</p>` : ''}
+${UNITS[f].type === 'v' && !isMass ? `<p>Hozzávalók (liszt, cukor, tej…) esetén a térfogat tömegre váltásához a sűrűséget is figyelembe kell venni – ehhez nézd meg a <a href="${url('/#hozzavalok')}">hozzávalók átváltási táblázatát</a>.</p>` : ''}
 
 ${faqHtml(faqs)}
 
 <h2>Kapcsolódó átváltások</h2>
 <ul class="links">
   ${others.map((x) => `<li><a href="${url(x.path)}">${esc(x.question)}</a></li>`).join('\n  ')}
+  ${usLink}
   <li><a href="${url('/mertekegysegek/')}">Összes konyhai mértékegység</a></li>
 </ul>
 `;
@@ -593,6 +611,7 @@ function buildUnitsIndex() {
     cells: [cap(UNITS[u].label.replace(/^(\S+) – /, '$1 – ')), ...['ml', 'dl', 'l'].map((c) => fmt(convert(1, u, c)) + ' ' + T(c))],
   }));
   const massRows = KA.MASS_ORDER.map((u) => ({ cells: [UNITS[u].label, ...['g', 'dkg', 'kg'].map((c) => fmt(convert(1, u, c)) + ' ' + T(c))] }));
+  const usRows = KA.US_ORDER.map((u) => ({ cells: [UNITS[u].label, UNITS[u].type === 'v' ? fmt(UNITS[u].f) + ' ml' : fmt(UNITS[u].f) + ' g', UNITS[u].type === 'v' ? (UNITS[u].f >= 100 ? fmt(UNITS[u].f / 100) + ' dl' : '–') : fmt(UNITS[u].f / 10) + ' dkg'] }));
   const faqs = STD_FAQ.map(({ q, a }) => ({ q, a }));
   const groupLinks = (order) =>
     order
@@ -611,11 +630,14 @@ ${bc.html}
 ${tbl(['1 egység', 'ml', 'dl', 'liter'], rows)}
 <h2>Tömeg</h2>
 ${tbl(['1 egység', 'g', 'dkg', 'kg'], massRows)}
+<h2>Amerikai mértékek</h2>
+${tbl(['1 egység', 'ml / g', 'dl / dkg'], usRows)}
+<p><a href="${url('/amerikai-mertekek/')}">Részletek: cup, tbsp, oz, lb átváltása →</a></p>
 <p>Térfogatot tömegre csak hozzávalóval együtt lehet pontosan átváltani, mert a liszt, a cukor vagy az olaj különböző sűrűségű. Ezt a <a href="${url('/#hozzavalok')}">hozzávalók táblázata</a> és az <a href="${url('/')}">átváltó kalkulátor</a> segít megoldani.</p>
 ${faqHtml(faqs)}
 <h2>Összes mértékegység-átváltás</h2>
-${groupLinks(KA.VOLUME_ORDER)}
-${groupLinks(KA.MASS_ORDER)}
+${groupLinks([...KA.VOLUME_ORDER, ...KA.VOLUME_US])}
+${groupLinks([...KA.MASS_ORDER, ...KA.MASS_US])}
 `;
   writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)] }), { title, desc });
 }
@@ -625,7 +647,7 @@ ${groupLinks(KA.MASS_ORDER)}
 function unitOptions(selected) {
   const group = (label, order) =>
     `<optgroup label="${label}">${order.map((u) => `<option value="${u}"${u === selected ? ' selected' : ''}>${esc(UNITS[u].label)}</option>`).join('')}</optgroup>`;
-  return group('Térfogat', KA.VOLUME_ORDER) + group('Tömeg', KA.MASS_ORDER);
+  return group('Térfogat', KA.VOLUME_ORDER) + group('Tömeg', KA.MASS_ORDER) + group('Amerikai mértékek', KA.US_ORDER);
 }
 
 function ingOptions(selected) {
@@ -740,6 +762,8 @@ ${presets.map(([label, e, a, f, t]) => `  <li><a data-preset href="${url('/')}?e
 <div class="catgrid">
   <a class="card" href="${url('/suto-homerseklet-atvalto/')}"><h3>Sütőhőfok-átváltó →</h3><p>°C, légkeveréses °C, °F és gázfokozat egy helyen.</p></a>
   <a class="card" href="${url('/darab/')}"><h3>Darabos hozzávalók →</h3><p>Hány gramm egy tojás, egy burgonya, egy gerezd fokhagyma?</p></a>
+  <a class="card" href="${url('/adagszam-atszamolo/')}"><h3>Adagszám-átszámoló →</h3><p>Írd be a receptet, és átszámolja másik adagszámra.</p></a>
+  <a class="card" href="${url('/amerikai-mertekek/')}"><h3>Amerikai mértékek →</h3><p>Cup, tbsp, oz és lb átváltása grammra, dl-re.</p></a>
 </div>
 
 <h2>Mennyi egy bögre, pohár, evőkanál?</h2>
@@ -798,7 +822,7 @@ function build404() {
 
 function buildStatic() {
   fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
-  for (const f of ['style.css', 'app.js', 'core.js', 'oven.js']) fs.copyFileSync(path.join(SRC, f), path.join(OUT, 'assets', f));
+  for (const f of ['style.css', 'app.js', 'core.js', 'oven.js', 'scale.js']) fs.copyFileSync(path.join(SRC, f), path.join(OUT, 'assets', f));
   const dens = Object.fromEntries(INGS.map((i) => [i.slug, i.density]));
   writeFile('assets/data.js', `window.KA_DENSITY=${JSON.stringify(dens)};\n`);
 
@@ -1130,6 +1154,103 @@ ${grp('fc', 'Fahrenheit → Celsius')}
   writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)], scripts }), { title, desc });
 }
 
+
+/* -------------------------------------------------------- amerikai mértékek */
+
+function buildUsHub() {
+  const p = '/amerikai-mertekek/';
+  const title = `Amerikai mértékek átváltása: cup, tbsp, oz, lb grammra | ${BRAND}`;
+  const desc = 'Hány ml egy cup, hány gramm egy oz, hány dkg egy font? Amerikai konyhai mértékek átváltása grammra, dl-re és magyar bögrére, hozzávalókkal.';
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Amerikai mértékek', p }]);
+  const unitRows = KA.US_ORDER.map((u) => ({ cells: [UNITS[u].label, UNITS[u].type === 'v' ? fmt(UNITS[u].f) + ' ml' : fmt(UNITS[u].f) + ' g', UNITS[u].type === 'v' ? (UNITS[u].f >= 100 ? fmt(UNITS[u].f / 100) + ' dl' : '–') : fmt(UNITS[u].f / 10) + ' dkg'] }));
+  const pop = ['liszt', 'cukor', 'porcukor', 'barna-cukor', 'vaj', 'tej', 'mez', 'rizs', 'kakaopor', 'zabpehely', 'olaj', 'tejfol', 'reszelt-sajt', 'zsemlemorzsa'].map((s) => INGS.find((i) => i.slug === s));
+  const cupRows = pop.map((i) => {
+    const g = (q, u) => niceMass(q * UNITS[u].f * i.density);
+    return { cells: [cap(i.name), fmt(g(1, 'uscup')) + ' g', fmt(g(0.5, 'uscup')) + ' g', fmt(g(1, 'ustbsp')) + ' g'] };
+  });
+  const ozRows = [1, 2, 4, 8, 16].map((q) => ({ cells: [`${q} oz`, fmt(niceMass(q * UNITS.oz.f)) + ' g', fmt(niceMass(q * UNITS.oz.f) / 10) + ' dkg'] }));
+  const faqs = US_FAQ.map(({ q, a }) => ({ q, a })).concat([
+    { q: 'Hány gramm egy cup liszt?', a: v2m(INGS[0], 1, 'uscup', 'g').sentence },
+    { q: 'Mennyi egy stick vaj?', a: 'Egy amerikai stick vaj 113 g, vagyis fél cup (kb. 8 evőkanál). Egy teljes csomag (4 stick) kb. 454 g, azaz 1 font.' },
+  ]);
+  const links = unitPairs.filter((x) => x.us).slice(0, 60);
+  const cupQ = questions.filter((q) => q.def.u === 'uscup' && q.def.q === 1 && q.def.t === 'g').slice(0, 20);
+  const body = `
+${bc.html}
+<h1>Amerikai mértékek átváltása</h1>
+<p class="lead">Az amerikai receptek cup, tbsp, tsp, oz és lb mértékekkel dolgoznak. Íme, mennyit jelentenek ml-ben, grammban, és hogyan viszonyulnak a magyar bögréhez.</p>
+<section class="card answer"><p class="big">1 cup ≈ 237 ml ≈ 2,4 dl</p><p>A magyar bögre 2,5 dl (250 ml), így az amerikai cup kb. 5%-kal kisebb. Kis mennyiségnél ez elhanyagolható, nagyobbnál érdemes grammra váltani.</p><p><a class="btn" href="${url('/')}?e=liszt&a=1&f=uscup&t=g">Átváltás a kalkulátorral →</a></p></section>
+<h2>Amerikai mértékegységek</h2>
+${tbl(['Mértékegység', 'ml / g', 'dl / dkg'], unitRows)}
+<h2>1 cup hány gramm?</h2>
+${tbl(['Hozzávaló', '1 cup', '1/2 cup', '1 tbsp'], cupRows)}
+<p class="small muted">A tömegeket a hozzávalók átlagos sűrűségével számoltuk (<a href="${url('/#hozzavalok')}">részletek</a>). A cup-ba mért liszt tömege a tömörítéstől függően 10–25%-kal is eltérhet.</p>
+<h2>Uncia → gramm</h2>
+${tbl(['Uncia', 'Gramm', 'Dkg'], ozRows)}
+${faqHtml(faqs)}
+<h2>1 cup hány gramm – hozzávalónként</h2>
+<ul class="links">
+  ${cupQ.map((x) => `<li><a href="${url(x.path)}">${esc(x.question)}</a></li>`).join('\n  ')}
+</ul>
+<h2>Minden amerikai mértékegység-átváltás</h2>
+<ul class="links">
+  ${links.map((x) => `<li><a href="${url(x.path)}">${esc(x.question)}</a></li>`).join('\n  ')}
+</ul>
+`;
+  writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)] }), { title, desc });
+}
+
+/* --------------------------------------------------------- adagszám-átszámoló */
+
+function buildScalePage() {
+  const p = '/adagszam-atszamolo/';
+  const title = `Recept adagszám átszámoló: 4 főre 6 főre, bármennyire | ${BRAND}`;
+  const desc = 'Illeszd be a recept hozzávalólistáját, add meg az eredeti és az új adagszámot, és az átszámoló arányosan átírja az összes mennyiséget. Ingyenes.';
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Adagszám-átszámoló', p }]);
+  const sample = '30 dkg liszt\n2 tojás\n1 1/2 bögre tej\n2-3 evőkanál olaj\n1 teáskanál só\n1/2 csomag sütőpor\n2 gerezd fokhagyma\nízlés szerint bors';
+  const pairs = [[4, 2], [4, 6], [4, 8], [6, 4], [6, 12], [2, 4], [2, 6], [8, 4]];
+  const rows = pairs.map(([a, b]) => ({ cells: [`${a} főről ${b} főre`, '× ' + fmt(b / a)] }));
+  const faqs = [
+    { q: 'Hogyan számolom át a receptet több főre?', a: 'Oszd el az új adagszámot az eredetivel, és az így kapott szorzóval szorozd meg az összes hozzávaló mennyiségét. Például 4 főről 6 főre a szorzó 1,5: 20 dkg liszt helyett 30 dkg kell.' },
+    { q: 'Minden hozzávalót ugyanúgy kell szorozni?', a: 'A legtöbbet igen, de a fűszereket, a sót és a kelesztőszereket érdemes óvatosabban, ízlés szerint növelni. Nagy adagnál a sütési idő és a tepsi mérete is változik.' },
+    { q: 'Mit csináljak, ha a tojás törtszám lesz?', a: 'Kerekítsd egész tojásra, vagy verd fel a tojást, és mérd le: egy közepes tojás kb. 50 g (héj nélkül). A fél tojás kb. 25 g.' },
+    { q: 'Változik a sütési idő, ha megduplázom a receptet?', a: 'Igen, ha nagyobb vagy vastagabb tésztát sütsz. Ha két külön tepsit használsz, a sütési idő nagyjából ugyanannyi marad; egy mélyebb tepsiben hosszabb is lehet. Az utolsó 10 percben ellenőrizd.' },
+  ];
+  const body = `
+${bc.html}
+<h1>Recept adagszám átszámoló</h1>
+<p class="lead">Illeszd be a hozzávalókat soronként, és add meg, hány főre szól az eredeti recept, és hányra szeretnéd. A mennyiségeket arányosan átírom. Törteket (1/2, 1 1/2), tizedesvesszőt és tartományt (2-3) is kezelek.</p>
+<section class="card conv" aria-label="Adagszám-átszámoló">
+  <div class="row2">
+    <div><label for="s-from">Eredeti adag (fő)</label><input id="s-from" type="text" inputmode="decimal" value="4"></div>
+    <div><label for="s-to">Új adag (fő)</label><input id="s-to" type="text" inputmode="decimal" value="6"></div>
+  </div>
+  <div style="margin-top:12px"><label for="s-src">Eredeti hozzávalók (soronként egy)</label><textarea id="s-src" rows="8" spellcheck="false">${esc(sample)}</textarea></div>
+  <div class="result" aria-live="polite">
+    <p class="sub" id="s-factor" style="margin:0 0 6px">Szorzó: × 1,5</p>
+    <div class="scaled" id="s-out"></div>
+    <p style="margin:10px 0 0"><button type="button" class="btn" id="s-copy">Másolás</button> <span class="small muted" id="s-msg"></span></p>
+  </div>
+  <noscript><p class="small muted">Az átszámoláshoz JavaScript szükséges.</p></noscript>
+</section>
+
+<h2>Gyakori szorzók</h2>
+${tbl(['Átszámolás', 'Szorzó'], rows)}
+
+<h2>Tippek a recept átszámolásához</h2>
+<ul>
+  <li>A hozzávalókat érdemes grammra váltani, mert a bögre és a kanál mennyiségét nehéz pontosan törtrészekre osztani. Ebben segít az <a href="${url('/')}">átváltó</a>.</li>
+  <li>A tojást és más darabos hozzávalót kerekítsd, vagy nézd meg a <a href="${url('/darab/')}">darabos hozzávalók</a> táblázatát.</li>
+  <li>A sót, a fűszereket és a kelesztőszert nagyobb adagnál kevesebbel kezdd, és kóstold, mert ezek nem mindig arányosan nőnek.</li>
+  <li>A sütési időt és a tepsi méretét is igazítsd, és mindig ellenőrizd a készre sülést.</li>
+</ul>
+
+${faqHtml(faqs)}
+`;
+  const scripts = `<script src="${url('/assets/core.js')}?v=${JS_V}"></script>\n<script src="${url('/assets/scale.js')}?v=${JS_V}"></script>`;
+  writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)], scripts }), { title, desc });
+}
+
 /* ---------------------------------------------------------------------- main */
 
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -1144,6 +1265,8 @@ pQuestions.forEach(buildPcQuestion);
 PIECES.forEach(buildPcHub);
 buildPcIndex();
 buildOvenHub();
+buildUsHub();
+buildScalePage();
 ovenPages.forEach(buildOvenPage);
 build404();
 buildStatic();
