@@ -156,7 +156,7 @@ ${body}
   <div class="wrap">
     <p><strong>${BRAND}</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
     <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
-    <p><a href="${url('/')}">Főoldal</a> · <a href="${url('/mertekegysegek/')}">Mértékegységek</a> · <a href="${url('/#hozzavalok')}">Hozzávalók</a> · <a href="${url('/darab/')}">Darabos hozzávalók</a> · <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a> · <a href="${url('/adagszam-atszamolo/')}">Adagszám-átszámoló</a> · <a href="${url('/amerikai-mertekek/')}">Amerikai mértékek</a> · © ${NOW.getFullYear()} konyhaiatvalto.hu</p>
+    <p><a href="${url('/')}">Főoldal</a> · <a href="${url('/mertekegysegek/')}">Mértékegységek</a> · <a href="${url('/#hozzavalok')}">Hozzávalók</a> · <a href="${url('/darab/')}">Darabos hozzávalók</a> · <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a> · <a href="${url('/adagszam-atszamolo/')}">Adagszám-átszámoló</a> · <a href="${url('/amerikai-mertekek/')}">Amerikai mértékek</a> · <a href="${url('/hutomagnes-cetli/')}">Hűtőmágnes-cetli (PDF)</a> · © ${NOW.getFullYear()} konyhaiatvalto.hu</p>
   </div>
 </footer>
 <script>(function(){var h=document.querySelector('.site-header'),b=document.getElementById('nav-toggle');if(!h||!b)return;function set(o){h.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'Menü bezárása':'Menü megnyitása')}b.addEventListener('click',function(){set(!h.classList.contains('open'))});h.addEventListener('click',function(e){if(e.target.closest('nav a'))set(false)});document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)})})()</script>
@@ -636,6 +636,7 @@ ${tbl(['1 egység', 'g', 'dkg', 'kg'], massRows)}
 <h2>Amerikai mértékek</h2>
 ${tbl(['1 egység', 'ml / g', 'dl / dkg'], usRows)}
 <p><a href="${url('/amerikai-mertekek/')}">Részletek: cup, tbsp, oz, lb átváltása →</a></p>
+<p><a href="${url('/hutomagnes-cetli/')}">Nyomtatható hűtőmágnes-cetli (PDF) →</a></p>
 <p>Térfogatot tömegre csak hozzávalóval együtt lehet pontosan átváltani, mert a liszt, a cukor vagy az olaj különböző sűrűségű. Ezt a <a href="${url('/#hozzavalok')}">hozzávalók táblázata</a> és az <a href="${url('/')}">átváltó kalkulátor</a> segít megoldani.</p>
 ${faqHtml(faqs)}
 <h2>Összes mértékegység-átváltás</h2>
@@ -858,6 +859,8 @@ function buildStatic() {
 
   writeFile('.nojekyll', '');
   writeFile('_headers', '/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n');
+  const dl = path.join(SRC, 'downloads');
+  if (fs.existsSync(dl)) for (const f of fs.readdirSync(dl)) { fs.mkdirSync(path.join(OUT, 'downloads'), { recursive: true }); fs.copyFileSync(path.join(dl, f), path.join(OUT, 'downloads', f)); }
   const host = new URL(SITE_URL).hostname;
   if (!BASE && !host.endsWith('github.io')) writeFile('CNAME', host + '\n');
 }
@@ -1260,6 +1263,100 @@ ${faqHtml(faqs)}
   writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)], scripts }), { title, desc });
 }
 
+
+/* ------------------------------------------------- hűtőmágnes-cetli (PDF, kép) */
+
+const SHEET_ING = ['liszt', 'porcukor', 'cukor', 'barna-cukor', 'kakaopor', 'zabpehely', 'rizs', 'busadara', 'zsemlemorzsa', 'vaj', 'olaj', 'tej', 'tejfol', 'mez', 'reszelt-sajt', 'dio', 'mak', 'so', 'sutopor'];
+const SHEET_PIECES = ['kozepes-tojas', 'tojassargaja', 'tojasfeherje', 'gerezd-fokhagyma', 'csomag-sutopor', 'csomag-vanilias-cukor', 'zacsko-szaritott-eleszto', 'kocka-friss-eleszto'];
+
+function shTable(head, rows) {
+  return `<table class="sh-t"><thead><tr>${head.map((h, i) => `<th${i ? ' class="n"' : ''}>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows
+    .map((r) => `<tr>${r.map((c, i) => (i ? `<td class="n">${esc(c)}</td>` : `<th scope="row">${esc(c)}</th>`)).join('')}</tr>`)
+    .join('')}</tbody></table>`;
+}
+
+function sheetInner() {
+  const ing = (slug) => INGS.find((i) => i.slug === slug);
+  const g = (i, ml) => fmt(niceMass(i.density * ml));
+  const ingRows = SHEET_ING.map(ing).map((i) => [cap(i.name), g(i, 100), g(i, 250), g(i, 15), g(i, 5)]);
+  const measures = [['1 bögre', '250', '2,5'], ['1 pohár', '200', '2'], ['1 evőkanál', '15', '0,15'], ['1 teáskanál', '5', '0,05'], ['1 dl', '100', '1'], ['1 liter', '1000', '10']];
+  const oven = [140, 150, 160, 170, 180, 190, 200, 210, 220].map((c) => [`${c} °C`, `${c - 20} °C`, `${toF(c)} °F`, gasTxt(c)]);
+  const pieces = SHEET_PIECES.map((s2) => PIECES.find((x) => x.slug === s2)).map((x) => [cap(pcLabel(x)), fmt(niceMass(x.grams)) + ' g']);
+  return `
+<header class="sh-head"><img src="${url('/brand/favicon.svg')}" alt="" width="44" height="44"><div><b>Konyhai átváltó</b><span>Hűtőmágnes-cetli: bögre, dl, evőkanál → gramm</span></div></header>
+<div class="sh-cols">
+  <div>
+    <h2>Mértékek</h2>
+    ${shTable(['Mérték', 'ml', 'dl'], measures)}
+    <p class="sh-note">1 dkg = 10 g · 1 kg = 100 dkg = 1000 g</p>
+    <h2>Sütőhőfok</h2>
+    ${shTable(['Alsó-felső', 'Légkeveréses', 'Fahrenheit', 'Gáz'], oven)}
+    <h2>Darabos hozzávalók</h2>
+    ${shTable(['1 darab', 'Tömeg'], pieces)}
+    <h2>Amerikai mértékek</h2>
+    <p class="sh-note">1 cup ≈ 237 ml · 1 tbsp ≈ 15 ml · 1 tsp ≈ 5 ml · 1 oz ≈ 28 g · 1 lb ≈ 454 g</p>
+  </div>
+  <div>
+    <h2>Hozzávalók grammban</h2>
+    ${shTable(['Hozzávaló', '1 dl', '1 bögre', '1 evőkanál', '1 teáskanál'], ingRows)}
+  </div>
+</div>
+<footer class="sh-foot"><span>konyhaiatvalto.hu</span><span>Tájékoztató értékek, átlagos sűrűséggel. Pontos eredményhez mérlegelj.</span></footer>`;
+}
+
+function sheetPageHtml(cls, title, inner) {
+  return `<!doctype html>
+<html lang="hu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>${esc(title)}</title>
+<link rel="stylesheet" href="${url('/assets/style.css')}?v=${CSS_V}">
+</head><body class="${cls}">${inner}</body></html>
+`;
+}
+
+function pinInner() {
+  const ing = (slug) => INGS.find((i) => i.slug === slug);
+  const rows = ['liszt', 'porcukor', 'cukor', 'rizs', 'zabpehely', 'kakaopor', 'vaj', 'olaj', 'tej', 'mez'].map(ing);
+  const g = (i, ml) => fmt(niceMass(i.density * ml));
+  return `
+<div class="pin-top"><img src="${url('/brand/favicon.svg')}" alt="" width="72" height="72"><b>Konyhai átváltó</b></div>
+<h1>Hány gramm egy <em>bögre</em>?</h1>
+<p class="pin-sub">1 bögre = 2,5 dl · 1 pohár = 2 dl · 1 evőkanál = 15 ml</p>
+<table class="pin-t"><thead><tr><th>Hozzávaló</th><th class="n">1 bögre</th><th class="n">1 dl</th><th class="n">1 evőkanál</th></tr></thead><tbody>
+${rows.map((i) => `<tr><th scope="row">${esc(cap(i.name))}</th><td class="n">${g(i, 250)} g</td><td class="n">${g(i, 100)} g</td><td class="n">${g(i, 15)} g</td></tr>`).join('\n')}
+</tbody></table>
+<div class="pin-foot">Ingyenes átváltó és nyomtatható cetli<br><b>konyhaiatvalto.hu</b></div>`;
+}
+
+function buildCetli() {
+  const p = '/hutomagnes-cetli/';
+  const title = `Hűtőmágnes konyhai átváltó cetli – ingyenes PDF | ${BRAND}`;
+  const desc = 'Nyomtatható A4-es konyhai átváltó cetli: bögre, pohár, evőkanál grammban, sütőhőfok, darabos hozzávalók. Ingyenes PDF a hűtőre.';
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Hűtőmágnes-cetli', p }]);
+  const faqs = [
+    { q: 'Hogyan nyomtassam ki a cetlit?', a: 'Töltsd le a PDF-et, és nyomtasd A4-es lapra, 100%-os méretben (ne „oldalhoz igazítva"). Ha laminálod vagy fóliába teszed, a konyhában is bírja a folyadékot és a zsírt.' },
+    { q: 'Milyen értékek vannak a cetlin?', a: 'A leggyakoribb mértékek (bögre, pohár, kanalak), 19 gyakori hozzávaló grammban, a sütőhőfok táblázata Celsius, légkeveréses, Fahrenheit és gázfokozat szerint, valamint néhány darabos hozzávaló és az amerikai mértékek.' },
+    { q: 'Szabad megosztani a cetlit?', a: 'Igen, szabadon kinyomtathatod és megoszthatod, kérjük, a lap alján szereplő oldalcímmel együtt.' },
+  ];
+  const body = `
+${bc.html}
+<h1>Hűtőmágnes-cetli: konyhai átváltó</h1>
+<p class="lead">Egy A4-es lap, ami a hűtődre vagy a konyhaszekrény ajtajára kerülhet: a leggyakoribb mértékek és hozzávalók grammban, sütőhőfok-táblázat, darabos hozzávalók. Töltsd le, nyomtasd ki, kész.</p>
+<p><a class="btn" href="${url('/downloads/konyhai-atvalto-cetli.pdf')}" download>PDF letöltése (A4)</a> <a class="btn ghost" href="${url('/downloads/konyhai-atvalto-cetli.png')}" download>Kép letöltése (Pinterestre, telefonra)</a></p>
+<div class="sheet">${sheetInner()}</div>
+<h2>Tippek</h2>
+<ul>
+  <li>Nyomtasd A4-es lapra, 100%-os méretben, és ha tudod, lamináld.</li>
+  <li>Telefonra mentsd el a képet, és tedd a kedvencek közé, ha nincs kéznél a nyomtatott lap.</li>
+  <li>A pontosabb, hozzávaló szerinti átváltáshoz használd a <a href="${url('/')}">kalkulátort</a>.</li>
+</ul>
+${faqHtml(faqs)}
+`;
+  writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)] }), { title, desc });
+  // nyomtatható A4 és Pinterest-kép forrása (nem indexelt, nincs a sitemapban)
+  writeFile('hutomagnes-cetli/lap/index.html', sheetPageHtml('sheet-a4', 'Konyhai átváltó cetli', `<div class="sheet">${sheetInner()}</div>`));
+  writeFile('hutomagnes-cetli/pin/index.html', sheetPageHtml('pin-page', 'Konyhai átváltó – Pinterest', pinInner()));
+}
+
 /* ---------------------------------------------------------------------- main */
 
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -1276,6 +1373,7 @@ buildPcIndex();
 buildOvenHub();
 buildUsHub();
 buildScalePage();
+buildCetli();
 ovenPages.forEach(buildOvenPage);
 build404();
 buildStatic();

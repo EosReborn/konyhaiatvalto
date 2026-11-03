@@ -9,6 +9,7 @@ Statikus (szerver nélküli) konyhai átváltó oldal: bögre, pohár, evőkaná
 - **Adagszám-átszámoló** (`/adagszam-atszamolo/`): beillesztett hozzávalólista arányos átírása (törtek, tizedesek, tartományok kezelésével).
 - **Amerikai mértékek** (`/amerikai-mertekek/`): cup, tbsp, tsp, fl oz, pint, quart, oz, lb; ezek a kalkulátorban és hozzávalónként („Hány gramm egy cup liszt?") is elérhetők.
 - **Egyedi szöveg** minden hozzávalóhoz (`about` mező az `ingredients.json`-ban).
+- **Hűtőmágnes-cetli** (`/hutomagnes-cetli/`): letölthető A4 PDF és Pinterest-méretű kép (`src/downloads/`). Ha változik az adat, a build frissíti az oldalt, de a PDF/PNG újrarenderelése kézzel történik: indíts helyi szervert (`python3 -m http.server 8765 --directory docs`), majd Chrome-mal: `--headless=new --no-pdf-header-footer --print-to-pdf=src/downloads/konyhai-atvalto-cetli.pdf http://localhost:8765/hutomagnes-cetli/lap/` és `--window-size=1000,1500 --screenshot=src/downloads/konyhai-atvalto-cetli.png http://localhost:8765/hutomagnes-cetli/pin/`.
 - **Hozzávaló-oldalak** (`/hozzavalo/liszt/`), **mértékegység-oldalak** (`/atvaltas/hany-dl-egy-bogre/`), `sitemap.xml`, `robots.txt`, `404.html`.
 - Mobilbarát, sötét módot is támogat, a kész oldalak működéséhez nem kell JavaScript (csak a főoldali kalkulátorhoz).
 
