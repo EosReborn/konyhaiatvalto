@@ -137,7 +137,7 @@ ${ld.map(ldScript).join('\n')}
 <body>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="${url('/')}" aria-label="Konyhai átváltó – főoldal"><picture><source media="(prefers-color-scheme: dark)" srcset="${url('/brand/logo-dark.svg')}"><img src="${url('/brand/logo.svg')}" alt="Konyhai átváltó" width="164" height="44"></picture></a>
+    <a class="brand" href="${url('/')}" aria-label="Konyhai átváltó – főoldal"><img src="${url('/brand/favicon.svg')}" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
     <nav aria-label="Fő menü">
       <a href="${url('/')}">Átváltó</a>
       <a href="${url('/#hozzavalok')}">Hozzávalók</a>
