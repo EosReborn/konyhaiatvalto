@@ -15,14 +15,14 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1c2420;
-    --card: #24332c;
-    --ink: #f8f0e3;
-    --muted: #b9c4bb;
-    --line: #36483f;
+    --bg: #1e1b19;
+    --card: #2a2623;
+    --ink: #f5ede0;
+    --muted: #b8aea3;
+    --line: #3d3733;
     --accent: #e86f51;
-    --accent-ink: #1c2420;
-    --accent-soft: #34473c;
+    --accent-ink: #1e1b19;
+    --accent-soft: #3d2d27;
     --sage: #7eae88;
     --ok: #7eae88;
     --shadow: none;

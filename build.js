@@ -126,7 +126,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F8F0E3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1c2420" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#1e1b19" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="${url('/favicon.svg')}" type="image/svg+xml">
 <link rel="icon" href="${url('/favicon.ico')}" sizes="48x48">
 <link rel="apple-touch-icon" href="${url('/brand/app-icon-180.png')}">
