@@ -737,11 +737,16 @@ function buildHome() {
 </ul>
 
 <section class="card conv" id="atvalto" aria-label="Átváltó kalkulátor">
+  <div class="smart">
+    <label for="q">Írd be, mit váltanál át</label>
+    <input id="q" type="text" placeholder="pl. 2 bögre liszt" autocomplete="off" enterkeyhint="done">
+    <p class="small muted" id="q-hint">pl. 25 dkg vaj, fél pohár tej, 1 evőkanál méz – vagy állítsd be lent.</p>
+  </div>
   <form onsubmit="return false" autocomplete="off">
     <div class="row">
       <div><label for="amount">Mennyiség</label><input id="amount" type="text" inputmode="decimal" value="1"></div>
       <div><label for="from">Miből</label><select id="from">${unitOptions('bogre')}</select></div>
-      <button type="button" class="swap" id="swap" aria-label="Mértékegységek felcserélése" title="Felcserélés">⇄</button>
+      <button type="button" class="swap" id="swap" aria-label="Mértékegységek felcserélése" title="Felcserélés">⇄<span class="swap-label"> Felcserélés</span></button>
       <div><label for="to">Mibe</label><select id="to">${unitOptions('dkg')}</select></div>
     </div>
     <div class="ing"><label for="ing">Hozzávaló</label><select id="ing">${ingOptions('liszt')}</select></div>
@@ -804,8 +809,8 @@ function m2vInit() {
       order.map((u) => `<tr${u === to ? ' class="hl"' : ''}><td>${T(u)}</td><td class="num">${fmt(convert(amount, from, u, ing.density))}</td></tr>`).join(''))
     .join('');
   return {
-    main: `1 bögre liszt = ${fmt(res)} dkg`,
-    sub: `Sűrűség: ${fmt(ing.density)} g/ml (1 dl liszt ≈ ${fmt(niceMass(ing.density * 100))} g). Az érték tájékoztató jellegű.`,
+    main: `1 bögre liszt ≈ ${fmt(niceMass(res * 10) / 10)} dkg`,
+    sub: `= ${fmt(niceMass(res * 10))} g = ${fmt(niceMass(res * 10) / 10)} dkg · sűrűség: ${fmt(ing.density)} g/ml (tájékoztató érték)`,
     rows,
   };
 }
@@ -824,7 +829,8 @@ function buildStatic() {
   fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
   for (const f of ['style.css', 'app.js', 'core.js', 'oven.js', 'scale.js']) fs.copyFileSync(path.join(SRC, f), path.join(OUT, 'assets', f));
   const dens = Object.fromEntries(INGS.map((i) => [i.slug, i.density]));
-  writeFile('assets/data.js', `window.KA_DENSITY=${JSON.stringify(dens)};\n`);
+  const names = Object.fromEntries(INGS.map((i) => [i.slug, i.name]));
+  writeFile('assets/data.js', `window.KA_DENSITY=${JSON.stringify(dens)};\nwindow.KA_NAMES=${JSON.stringify(names)};\n`);
 
   const brandDir = path.join(SRC, 'brand');
   fs.mkdirSync(path.join(OUT, 'brand'), { recursive: true });
