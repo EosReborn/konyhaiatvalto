@@ -89,3 +89,14 @@ Domain nélkül (`https://felhasznalo.github.io/repo-neve/`) építsd a fenti `B
 - Add hozzá az oldalt a [Google Search Console](https://search.google.com/search-console)-hoz, és küldd be a `https://konyhaiatvalto.hu/sitemap.xml` címet.
 - A `sitemap.xml` minden buildnél az aktuális dátummal frissül (`lastmod`); a `robots.txt` mindent engedélyez, és hivatkozik a sitemapre.
 - Az értékek tájékoztató jellegűek – ezt a láblécben is jelezzük.
+
+## SEO – mi van beépítve
+
+- Minden oldalnak egyedi `title`-je (hosszú címnél a márkanév kimarad, max. ~64 karakter), meta leírása, `canonical`, `hreflang`, Open Graph és Twitter kártyája, `max-snippet`/`max-image-preview` robots direktíva.
+- Strukturált adat: `BreadcrumbList` minden oldalon, `FAQPage` az aloldalakon, `WebSite` + `Organization` + `WebApplication` a főoldalon.
+- `sitemap.xml` **pontos `lastmod` dátumokkal**: a `src/lastmod.json` oldalanként tárolja a tartalom lenyomatát, és csak akkor ír új dátumot, ha az oldal tartalma tényleg változott. Ezt a fájlt commitold a `docs/` mellett.
+- Belső linkelés: morzsamenü, hozzávalónként összes kérdés, ugyanaz a kérdés más hozzávalóval, `/terkep/` oldaltérkép, `/modszertan/` módszertani oldal (átláthatóság), „adatok frissítve" sor minden oldalon.
+- Teljesítmény: egyetlen CSS, JS csak ott, ahol kell, rögzített képméretek, hosszú lejáratú gyorsítótár az `assets/` mappára (`vercel.json`, `_headers`).
+- **IndexNow**: `src/indexnow.key` + `node tools/indexnow.js` – a domain élesedése után az új/módosított oldalakat azonnal jelzi a Bingnek és társainak (`SINCE=2026-11-01` a kezdődátum).
+
+Domain élesedése után: Google Search Console + Bing Webmaster (sitemap beadása), `www` → apex átirányítás a DNS/hosting beállításban, és a Rich Results Test / Search Console „Ffejlesztések" jelentés ellenőrzése. A `FAQPage` rich result a Google-nél 2023 óta csak kiemelt (állami, egészségügyi) oldalaknak jelenik meg, de az adat a kereső és az AI-összefoglalók számára így is hasznos.

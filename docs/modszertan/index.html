@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Módszertan: hogyan számolja az oldal a mértékeket?</title>
+<meta name="description" content="Hogyan váltjuk át a bögrét, evőkanalat és dl-t grammra: sűrűségek, kerekítés, használt mértékek és az értékek pontossága, átláthatóan.">
+<link rel="canonical" href="https://konyhaiatvalto.hu/modszertan/">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="alternate" hreflang="hu" href="https://konyhaiatvalto.hu/modszertan/">
+<link rel="alternate" hreflang="x-default" href="https://konyhaiatvalto.hu/modszertan/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="hu_HU">
+<meta property="og:site_name" content="Konyhai átváltó">
+<meta property="og:title" content="Módszertan: hogyan számolja az oldal a mértékeket?">
+<meta property="og:description" content="Hogyan váltjuk át a bögrét, evőkanalat és dl-t grammra: sűrűségek, kerekítés, használt mértékek és az értékek pontossága, átláthatóan.">
+<meta property="og:url" content="https://konyhaiatvalto.hu/modszertan/">
+<meta property="og:image" content="https://konyhaiatvalto.hu/brand/social-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Konyhai átváltó – bögre, pohár, evőkanál átváltása grammra">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Módszertan: hogyan számolja az oldal a mértékeket?">
+<meta name="twitter:description" content="Hogyan váltjuk át a bögrét, evőkanalat és dl-t grammra: sűrűségek, kerekítés, használt mértékek és az értékek pontossága, átláthatóan.">
+<meta name="twitter:image" content="https://konyhaiatvalto.hu/brand/social-preview.png">
+<meta name="theme-color" content="#F8F0E3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1e1b19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/brand/app-icon-180.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<script>document.documentElement.className+=" js"</script>
+<link rel="stylesheet" href="/assets/style.css?v=20e7f075">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Főoldal","item":"https://konyhaiatvalto.hu/"},{"@type":"ListItem","position":2,"name":"Módszertan","item":"https://konyhaiatvalto.hu/modszertan/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Honnan származnak a sűrűségek?","acceptedAnswer":{"@type":"Answer","text":"A hozzávalók sűrűségét (g/ml) közismert konyhai átlagértékekből adtuk meg, és ennek megfelelően tájékoztató jellegűek. Márkánként, tömörségtől és nedvességtől függően akár 10–25%-kal is eltérhetnek."}},{"@type":"Question","name":"Miért kerekít az oldal?","acceptedAnswer":{"@type":"Answer","text":"A konyhai gyakorlatban a 137,5 g liszt nem használható érték, ezért az átváltás 100 g felett 5 g-ra, 10 g felett 1 g-ra, ennél kisebbnél fél vagy tized grammra kerekít. A számítás sorában mindig látható a pontos érték is."}},{"@type":"Question","name":"Pontos-e a gázfokozat és a légkeveréses átváltás?","acceptedAnswer":{"@type":"Answer","text":"Csak közelítő. A légkeveréses hőfokot az alsó-felső értékből általában 20 °C levonásával adjuk meg, a gázfokozatok az UK Gas Mark skálát követik. A magyar gáztűzhelyek skálája eltérhet, ezért sütőhőmérővel érdemes ellenőrizni."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Ugrás a tartalomhoz</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Konyhai átváltó – főoldal"><img src="/brand/favicon.svg" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü megnyitása"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Fő menü">
+      <a href="/#hozzavalok">Hozzávalók</a>
+      <a href="/darab/">Darabos</a>
+      <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a>
+      <a href="/adagszam-atszamolo/">Adagszám</a>
+      <a href="/mertekegysegek/">Mértékegységek</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap" id="main">
+
+<nav class="crumbs" aria-label="Morzsamenü"><ol><li><a href="/">Főoldal</a></li><li aria-current="page">Módszertan</li></ol></nav>
+<h1>Módszertan: hogyan számolunk?</h1>
+<p class="lead">Az oldal minden értéke ugyanabból a képletből és ugyanazokból az adatokból jön. Itt leírjuk, mi hogyan működik, és mikor érdemes mérlegre tenni a hozzávalót.</p>
+<h2>A képlet</h2>
+<p>Térfogatról tömegre váltáskor a térfogatot (ml) megszorozzuk a hozzávaló sűrűségével (g/ml). Tömegről térfogatra a tömeget osztjuk a sűrűséggel. Egy bögre liszt például 250 ml × 0,55 g/ml = 137,5 g, ami kerekítve kb. 140 g, azaz 14 dkg. Minden oldalon látható a számítás sora.</p>
+<h2>A használt mértékek</h2>
+<ul>
+  <li>1 bögre = 2,5 dl (250 ml), 1 pohár = 2 dl (200 ml)</li>
+  <li>1 evőkanál = 15 ml, 1 teáskanál = 5 ml</li>
+  <li>Amerikai mértékek: 1 cup = 236,6 ml, 1 tbsp = 14,8 ml, 1 tsp = 4,9 ml, 1 oz = 28,35 g, 1 lb = 453,6 g</li>
+</ul>
+<p>A bögre és a pohár nem szabványos mérték. A magyar konyhákban a fenti értékekkel számolnak, de a konkrét edény ettől eltérhet.</p>
+<h2>A sűrűségek</h2>
+<p>A 60 hozzávaló sűrűségét közismert konyhai átlagértékekből adtuk meg. Az értékek a <a href="/#hozzavalok">főoldali táblázatban</a> láthatók, és az <code>src/ingredients.json</code> fájlban egyetlen helyen szerkeszthetők. Ahol a sűrűség a tömörítéstől függ (liszt, porcukor, reszelt sajt), a lazán kimért állapotot vettük alapul.</p>
+<h2>Darabos hozzávalók</h2>
+<p>A tojás, a zöldségek és a csomagolt hozzávalók tömege átlagos, közepes méretű darabra vonatkozik. Egy közepes tojást például 50 g-nak (héj nélkül) vettünk. A <a href="/darab/">darabos hozzávalók</a> oldalain a méret- és kiszerelés-megjegyzések is olvashatók.</p>
+<h2>Sütőhőfok</h2>
+<p>A Celsius–Fahrenheit átváltás pontos képletet használ (F = C × 9/5 + 32). A légkeveréses hőfok az alsó-felső értékből 20 °C-kal alacsonyabb, a gázfokozat az UK Gas Mark táblázat legközelebbi értéke. Ezek közelítések: <a href="/suto-homerseklet-atvalto/">sütőhőfok-átváltó</a>.</p>
+<h2>Mire használd, mire ne?</h2>
+<p>Az oldal gyors tájékozódásra való a konyhában. Kelt tésztánál, cukrászatban és minden olyan receptnél, ahol a pontosság számít, érdemes mérlegen mérni a hozzávalókat.</p>
+<section aria-labelledby="faq"><h2 id="faq">Gyakori kérdések</h2>
+<details open><summary>Honnan származnak a sűrűségek?</summary><p>A hozzávalók sűrűségét (g/ml) közismert konyhai átlagértékekből adtuk meg, és ennek megfelelően tájékoztató jellegűek. Márkánként, tömörségtől és nedvességtől függően akár 10–25%-kal is eltérhetnek.</p></details>
+<details><summary>Miért kerekít az oldal?</summary><p>A konyhai gyakorlatban a 137,5 g liszt nem használható érték, ezért az átváltás 100 g felett 5 g-ra, 10 g felett 1 g-ra, ennél kisebbnél fél vagy tized grammra kerekít. A számítás sorában mindig látható a pontos érték is.</p></details>
+<details><summary>Pontos-e a gázfokozat és a légkeveréses átváltás?</summary><p>Csak közelítő. A légkeveréses hőfokot az alsó-felső értékből általában 20 °C levonásával adjuk meg, a gázfokozatok az UK Gas Mark skálát követik. A magyar gáztűzhelyek skálája eltérhet, ezért sütőhőmérővel érdemes ellenőrizni.</p></details>
+</section>
+
+<p class="small muted updated">Az adatok utoljára frissítve: 2026. 11. 03. · <a href="/modszertan/">Hogyan számolunk?</a></p>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Konyhai átváltó</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
+    <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
+    <p><a href="/">Főoldal</a> · <a href="/mertekegysegek/">Mértékegységek</a> · <a href="/#hozzavalok">Hozzávalók</a> · <a href="/darab/">Darabos hozzávalók</a> · <a href="/suto-homerseklet-atvalto/">Sütőhőfok</a> · <a href="/adagszam-atszamolo/">Adagszám-átszámoló</a> · <a href="/amerikai-mertekek/">Amerikai mértékek</a> · <a href="/hutomagnes-cetli/">Hűtőmágnes-cetli (PDF)</a> · <a href="/modszertan/">Módszertan</a> · <a href="/terkep/">Oldaltérkép</a> · © 2026 konyhaiatvalto.hu</p>
+  </div>
+</footer>
+<script>(function(){var h=document.querySelector('.site-header'),b=document.getElementById('nav-toggle');if(!h||!b)return;function set(o){h.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'Menü bezárása':'Menü megnyitása')}b.addEventListener('click',function(){set(!h.classList.contains('open'))});h.addEventListener('click',function(e){if(e.target.closest('nav a'))set(false)});document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)})})()</script>
+
+</body>
+</html>

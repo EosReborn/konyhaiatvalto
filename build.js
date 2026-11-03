@@ -83,6 +83,15 @@ const JS_V = hash(fs.readFileSync(path.join(SRC, 'app.js')) + fs.readFileSync(pa
 /* ------------------------------------------------------------ fájlkezelés */
 
 const sitemap = [];
+const lastmod = new Map();
+const CACHE_FILE = path.join(SRC, 'lastmod.json');
+let oldCache = { pages: {}, data: {} };
+try { oldCache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8')); } catch (e) { /* első build */ }
+const newCache = { pages: {}, data: {} };
+const dataHash = hash(fs.readFileSync(path.join(SRC, 'ingredients.json'), 'utf8'));
+const DATA_DATE = oldCache.data && oldCache.data.h === dataHash ? oldCache.data.d : TODAY;
+newCache.data = { h: dataHash, d: DATA_DATE };
+const DATA_DATE_HU = DATA_DATE.replace(/-/g, '. ') + '.';
 const seen = { title: new Map(), desc: new Map() };
 
 function writeFile(rel, content) {
@@ -95,6 +104,13 @@ function writePage(p, html, meta) {
   const rel = p === '/' ? 'index.html' : p.replace(/^\//, '') + 'index.html';
   writeFile(rel, html);
   sitemap.push(p);
+  // lastmod: csak akkor változik, ha az oldal tartalma tényleg változott
+  const norm = html.replace(/\?v=[0-9a-f]{8}/g, '').split(SITE_URL + BASE).join('');
+  const h = hash(norm);
+  const prev = oldCache.pages[p];
+  const d = prev && prev.h === h ? prev.d : TODAY;
+  newCache.pages[p] = { h, d };
+  lastmod.set(p, d);
   for (const k of ['title', 'desc']) {
     const v = meta[k];
     if (seen[k].has(v)) console.warn(`FIGYELEM: duplikált ${k}: ${v} (${p} / ${seen[k].get(v)})`);
@@ -106,25 +122,33 @@ function writePage(p, html, meta) {
 
 function layout({ title, desc, p, body, ld = [], noindex = false, scripts = '' }) {
   const canonical = abs(p);
+  // hosszú címnél a márkanév marad ki, hogy a találati listában ne vágja le a végét
+  const shortTitle = title.length > 62 ? title.replace(` | ${BRAND}`, '') : title;
   return `<!doctype html>
 <html lang="hu">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)}</title>
+<title>${esc(shortTitle)}</title>
 <meta name="description" content="${esc(desc)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">
-<meta name="robots" content="index,follow,max-image-preview:large">`}
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="alternate" hreflang="hu" href="${canonical}">
+<link rel="alternate" hreflang="x-default" href="${canonical}">`}
 <meta property="og:type" content="website">
 <meta property="og:locale" content="hu_HU">
 <meta property="og:site_name" content="${BRAND}">
-<meta property="og:title" content="${esc(title)}">
+<meta property="og:title" content="${esc(shortTitle)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:image" content="${abs('/brand/social-preview.png')}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Konyhai átváltó – bögre, pohár, evőkanál átváltása grammra">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(shortTitle)}">
+<meta name="twitter:description" content="${esc(desc)}">
+<meta name="twitter:image" content="${abs('/brand/social-preview.png')}">
 <meta name="theme-color" content="#F8F0E3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1e1b19" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="${url('/favicon.svg')}" type="image/svg+xml">
@@ -136,6 +160,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 ${ld.map(ldScript).join('\n')}
 </head>
 <body>
+<a class="skip" href="#main">Ugrás a tartalomhoz</a>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="${url('/')}" aria-label="Konyhai átváltó – főoldal"><img src="${url('/brand/favicon.svg')}" alt="" width="44" height="44"><span class="brand-text"><span>Konyhai</span><span>Átváltó</span></span></a>
@@ -149,14 +174,15 @@ ${ld.map(ldScript).join('\n')}
     </nav>
   </div>
 </header>
-<main class="wrap">
+<main class="wrap" id="main">
 ${body}
+${noindex ? '' : `<p class="small muted updated">Az adatok utoljára frissítve: ${DATA_DATE_HU} · <a href="${url('/modszertan/')}">Hogyan számolunk?</a></p>`}
 </main>
 <footer class="site-footer">
   <div class="wrap">
     <p><strong>${BRAND}</strong> – bögre, pohár, evőkanál, teáskanál átváltása grammra, dekára, deciliterre.</p>
     <p>Az értékek tájékoztató jellegűek: a bögre és a pohár nem szabványos mérték (itt 2,5 dl, illetve 2 dl), a hozzávalók tömege pedig a tömörségtől és a márkától függően eltérhet. Pontos eredményhez mérlegelj.</p>
-    <p><a href="${url('/')}">Főoldal</a> · <a href="${url('/mertekegysegek/')}">Mértékegységek</a> · <a href="${url('/#hozzavalok')}">Hozzávalók</a> · <a href="${url('/darab/')}">Darabos hozzávalók</a> · <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a> · <a href="${url('/adagszam-atszamolo/')}">Adagszám-átszámoló</a> · <a href="${url('/amerikai-mertekek/')}">Amerikai mértékek</a> · <a href="${url('/hutomagnes-cetli/')}">Hűtőmágnes-cetli (PDF)</a> · © ${NOW.getFullYear()} konyhaiatvalto.hu</p>
+    <p><a href="${url('/')}">Főoldal</a> · <a href="${url('/mertekegysegek/')}">Mértékegységek</a> · <a href="${url('/#hozzavalok')}">Hozzávalók</a> · <a href="${url('/darab/')}">Darabos hozzávalók</a> · <a href="${url('/suto-homerseklet-atvalto/')}">Sütőhőfok</a> · <a href="${url('/adagszam-atszamolo/')}">Adagszám-átszámoló</a> · <a href="${url('/amerikai-mertekek/')}">Amerikai mértékek</a> · <a href="${url('/hutomagnes-cetli/')}">Hűtőmágnes-cetli (PDF)</a> · <a href="${url('/modszertan/')}">Módszertan</a> · <a href="${url('/terkep/')}">Oldaltérkép</a> · © ${NOW.getFullYear()} konyhaiatvalto.hu</p>
   </div>
 </footer>
 <script>(function(){var h=document.querySelector('.site-header'),b=document.getElementById('nav-toggle');if(!h||!b)return;function set(o){h.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'Menü bezárása':'Menü megnyitása')}b.addEventListener('click',function(){set(!h.classList.contains('open'))});h.addEventListener('click',function(e){if(e.target.closest('nav a'))set(false)});document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)})})()</script>
@@ -727,6 +753,14 @@ function buildHome() {
       description: desc,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'HUF' },
     },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: BRAND,
+      url: abs('/'),
+      inLanguage: 'hu',
+      publisher: { '@type': 'Organization', name: BRAND, url: abs('/'), logo: { '@type': 'ImageObject', url: abs('/brand/app-icon-512.png'), width: 512, height: 512 } },
+    },
     faqLd(faqs),
   ];
 
@@ -853,10 +887,14 @@ function buildStatic() {
   writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${abs('/sitemap.xml')}\n`);
 
   const urls = sitemap
-    .map((p) => `  <url><loc>${abs(p)}</loc><lastmod>${TODAY}</lastmod></url>`)
+    .map((p) => `  <url><loc>${abs(p)}</loc><lastmod>${lastmod.get(p) || TODAY}</lastmod></url>`)
     .join('\n');
   writeFile('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
 
+  const inKey = path.join(SRC, 'indexnow.key');
+  if (fs.existsSync(inKey)) { const k = fs.readFileSync(inKey, 'utf8').trim(); writeFile(`${k}.txt`, k + '\n'); }
+  const sorted = Object.fromEntries(Object.entries(newCache.pages).sort(([a], [b]) => (a < b ? -1 : 1)));
+  fs.writeFileSync(CACHE_FILE, JSON.stringify({ data: newCache.data, pages: sorted }, null, 0) + '\n');
   writeFile('.nojekyll', '');
   writeFile('_headers', '/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n');
   const dl = path.join(SRC, 'downloads');
@@ -1357,6 +1395,70 @@ ${faqHtml(faqs)}
   writeFile('hutomagnes-cetli/pin/index.html', sheetPageHtml('pin-page', 'Konyhai átváltó – Pinterest', pinInner()));
 }
 
+
+/* ------------------------------------------------- módszertan + oldaltérkép */
+
+function buildMethod() {
+  const p = '/modszertan/';
+  const title = `Módszertan: hogyan számolja az oldal a mértékeket? | ${BRAND}`;
+  const desc = 'Hogyan váltjuk át a bögrét, evőkanalat és dl-t grammra: sűrűségek, kerekítés, használt mértékek és az értékek pontossága, átláthatóan.';
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Módszertan', p }]);
+  const faqs = [
+    { q: 'Honnan származnak a sűrűségek?', a: 'A hozzávalók sűrűségét (g/ml) közismert konyhai átlagértékekből adtuk meg, és ennek megfelelően tájékoztató jellegűek. Márkánként, tömörségtől és nedvességtől függően akár 10–25%-kal is eltérhetnek.' },
+    { q: 'Miért kerekít az oldal?', a: 'A konyhai gyakorlatban a 137,5 g liszt nem használható érték, ezért az átváltás 100 g felett 5 g-ra, 10 g felett 1 g-ra, ennél kisebbnél fél vagy tized grammra kerekít. A számítás sorában mindig látható a pontos érték is.' },
+    { q: 'Pontos-e a gázfokozat és a légkeveréses átváltás?', a: 'Csak közelítő. A légkeveréses hőfokot az alsó-felső értékből általában 20 °C levonásával adjuk meg, a gázfokozatok az UK Gas Mark skálát követik. A magyar gáztűzhelyek skálája eltérhet, ezért sütőhőmérővel érdemes ellenőrizni.' },
+  ];
+  const body = `
+${bc.html}
+<h1>Módszertan: hogyan számolunk?</h1>
+<p class="lead">Az oldal minden értéke ugyanabból a képletből és ugyanazokból az adatokból jön. Itt leírjuk, mi hogyan működik, és mikor érdemes mérlegre tenni a hozzávalót.</p>
+<h2>A képlet</h2>
+<p>Térfogatról tömegre váltáskor a térfogatot (ml) megszorozzuk a hozzávaló sűrűségével (g/ml). Tömegről térfogatra a tömeget osztjuk a sűrűséggel. Egy bögre liszt például 250 ml × 0,55 g/ml = 137,5 g, ami kerekítve kb. 140 g, azaz 14 dkg. Minden oldalon látható a számítás sora.</p>
+<h2>A használt mértékek</h2>
+<ul>
+  <li>1 bögre = 2,5 dl (250 ml), 1 pohár = 2 dl (200 ml)</li>
+  <li>1 evőkanál = 15 ml, 1 teáskanál = 5 ml</li>
+  <li>Amerikai mértékek: 1 cup = 236,6 ml, 1 tbsp = 14,8 ml, 1 tsp = 4,9 ml, 1 oz = 28,35 g, 1 lb = 453,6 g</li>
+</ul>
+<p>A bögre és a pohár nem szabványos mérték. A magyar konyhákban a fenti értékekkel számolnak, de a konkrét edény ettől eltérhet.</p>
+<h2>A sűrűségek</h2>
+<p>A ${INGS.length} hozzávaló sűrűségét közismert konyhai átlagértékekből adtuk meg. Az értékek a <a href="${url('/#hozzavalok')}">főoldali táblázatban</a> láthatók, és az <code>src/ingredients.json</code> fájlban egyetlen helyen szerkeszthetők. Ahol a sűrűség a tömörítéstől függ (liszt, porcukor, reszelt sajt), a lazán kimért állapotot vettük alapul.</p>
+<h2>Darabos hozzávalók</h2>
+<p>A tojás, a zöldségek és a csomagolt hozzávalók tömege átlagos, közepes méretű darabra vonatkozik. Egy közepes tojást például 50 g-nak (héj nélkül) vettünk. A <a href="${url('/darab/')}">darabos hozzávalók</a> oldalain a méret- és kiszerelés-megjegyzések is olvashatók.</p>
+<h2>Sütőhőfok</h2>
+<p>A Celsius–Fahrenheit átváltás pontos képletet használ (F = C × 9/5 + 32). A légkeveréses hőfok az alsó-felső értékből 20 °C-kal alacsonyabb, a gázfokozat az UK Gas Mark táblázat legközelebbi értéke. Ezek közelítések: <a href="${url('/suto-homerseklet-atvalto/')}">sütőhőfok-átváltó</a>.</p>
+<h2>Mire használd, mire ne?</h2>
+<p>Az oldal gyors tájékozódásra való a konyhában. Kelt tésztánál, cukrászatban és minden olyan receptnél, ahol a pontosság számít, érdemes mérlegen mérni a hozzávalókat.</p>
+${faqHtml(faqs)}
+`;
+  writePage(p, layout({ title, desc, p, body, ld: [bc.ld, faqLd(faqs)] }), { title, desc });
+}
+
+function buildSiteMapPage() {
+  const p = '/terkep/';
+  const title = `Oldaltérkép: minden átváltó és hozzávaló egy helyen | ${BRAND}`;
+  const desc = 'Az összes átváltó, hozzávaló-oldal, darabos hozzávaló, sütőhőfok-átváltó és letölthető cetli áttekinthető listája.';
+  const bc = crumbs([{ name: 'Főoldal', p: '/' }, { name: 'Oldaltérkép', p }]);
+  const tools = [
+    ['/', 'Konyhai átváltó (főoldal)'], ['/mertekegysegek/', 'Konyhai mértékegységek'], ['/amerikai-mertekek/', 'Amerikai mértékek (cup, oz, lb)'],
+    ['/suto-homerseklet-atvalto/', 'Sütőhőfok-átváltó'], ['/adagszam-atszamolo/', 'Adagszám-átszámoló'], ['/darab/', 'Darabos hozzávalók'],
+    ['/hutomagnes-cetli/', 'Hűtőmágnes-cetli (PDF)'], ['/modszertan/', 'Módszertan'],
+  ];
+  const groups = data.categories.map((c) => `<h3>${esc(c.name)}</h3><ul class="links">${INGS.filter((i) => i.cat === c.id).map((i) => `<li><a href="${url(hubPath(i))}">${esc(cap(i.name))} átváltás</a></li>`).join('')}</ul>`).join('\n');
+  const pieceGroups = [...new Set(PIECES.map((x) => x.group))].map((g) => `<h3>${esc(g)}</h3><ul class="links">${PIECES.filter((x) => x.group === g).map((x) => `<li><a href="${url(pcHub(x))}">${esc(cap(pcLabel(x)))} hány gramm?</a></li>`).join('')}</ul>`).join('\n');
+  const body = `
+${bc.html}
+<h1>Oldaltérkép</h1>
+<h2>Eszközök</h2>
+<ul class="links">${tools.map(([h, t]) => `<li><a href="${url(h)}">${esc(t)}</a></li>`).join('')}</ul>
+<h2>Hozzávalók</h2>
+${groups}
+<h2>Darabos hozzávalók</h2>
+${pieceGroups}
+`;
+  writePage(p, layout({ title, desc, p, body, ld: [bc.ld] }), { title, desc });
+}
+
 /* ---------------------------------------------------------------------- main */
 
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -1374,6 +1476,8 @@ buildOvenHub();
 buildUsHub();
 buildScalePage();
 buildCetli();
+buildMethod();
+buildSiteMapPage();
 ovenPages.forEach(buildOvenPage);
 build404();
 buildStatic();

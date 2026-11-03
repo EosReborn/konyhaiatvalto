@@ -225,3 +225,8 @@ body.pin-page { width: 1000px; height: 1500px; margin: 0; background: #f8f0e3; c
 .pin-t .n { text-align: right; font-variant-numeric: tabular-nums; }
 .pin-foot { margin-top: 36px; background: #24332c; color: #f8f0e3; border-radius: 18px; padding: 26px 32px; font-size: 30px; text-align: center; line-height: 1.5; }
 .pin-foot b { color: #e86f51; font-size: 42px; }
+
+/* kisegítő: ugrás a tartalomhoz, frissítés-sor */
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--accent); color: var(--accent-ink); padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; }
+.skip:focus { left: 8px; }
+.updated { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 10px; }
